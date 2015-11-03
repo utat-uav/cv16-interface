@@ -13,6 +13,7 @@
 #include <QDirIterator>
 #include <QtCore/QCoreApplication>
 
+
 namespace Ui {
 class MainWindow;
 }

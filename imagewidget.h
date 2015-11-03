@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QSize>
+#include "targetlistwindow.h"
+#include <QMouseEvent>
 
 namespace Ui {
 class ImageWidget;
@@ -23,6 +25,9 @@ public:
     void setImage(QString filePath);
     void setImage(QPixmap resizedImage);
     ~ImageWidget();
+
+protected:
+    void mouseDoubleClickEvent(QMouseEvent *event);
 
 private:
     Ui::ImageWidget *ui;

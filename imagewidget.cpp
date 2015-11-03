@@ -44,3 +44,11 @@ void ImageWidget::setImage(QPixmap resizedImage)
     ui->imageLabel->setPixmap(resizedImage);
     image = resizedImage;
 }
+
+void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
+    if ( event->button() == Qt::LeftButton ){
+        TargetListWindow *targetWindow = new TargetListWindow ;
+        targetWindow->show() ;
+        targetWindow->setWindowTitle(title);
+    }
+}
