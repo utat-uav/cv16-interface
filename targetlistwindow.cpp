@@ -146,3 +146,8 @@ void TargetListWindow::sort(int col)
         targetList->refreshTable();
     }
 }
+
+void TargetListWindow::setMainPic (QPixmap image) {
+    mainpic = image.scaled(381, 381, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation) ;
+    ui->mainpic->setPixmap(mainpic);
+}

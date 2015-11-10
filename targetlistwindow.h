@@ -19,6 +19,7 @@ public:
     TargetList *targetList;
     int colCount;
     ~TargetListWindow();
+    void setMainPic (QPixmap image) ;
 
 private slots:
     void on_newItem_clicked();
@@ -36,6 +37,7 @@ private slots:
 private:
     TargetMaker *targetMaker;
     TargetMaker *targetEditor;
+    QPixmap mainpic ;
 };
 
 #endif // TARGETLISTWINDOW_H

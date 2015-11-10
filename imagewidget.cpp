@@ -50,5 +50,6 @@ void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
         TargetListWindow *targetWindow = new TargetListWindow ;
         targetWindow->show() ;
         targetWindow->setWindowTitle(title);
+        targetWindow->setMainPic(image);
     }
 }
