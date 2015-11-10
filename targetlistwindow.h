@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "targetmaker.h"
 #include "targetlist.h"
+#include <QSettings>
 
 namespace Ui {
 class TargetListWindow;
@@ -19,7 +20,8 @@ public:
     TargetList *targetList;
     int colCount;
     ~TargetListWindow();
-    void setMainPic (QPixmap image) ;
+    void setMainPic (QString imagePath) ;
+    void loadTargets (QString folderPath, QString filePath) ;
 
 private slots:
     void on_newItem_clicked();
@@ -35,7 +37,7 @@ private slots:
     void sort(int col);
 
 private:
-    TargetMaker *targetMaker;
+    //TargetMaker *targetMaker;
     TargetMaker *targetEditor;
     QPixmap mainpic ;
 };

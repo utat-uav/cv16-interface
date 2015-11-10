@@ -26,7 +26,7 @@ TargetListWindow::~TargetListWindow()
 
 void TargetListWindow::on_newItem_clicked()
 {
-    targetMaker = new TargetMaker(this);
+    TargetMaker* targetMaker = new TargetMaker(this);
     targetMaker->setModal(true);
     targetMaker->setWindowTitle("Create New Target");
     targetMaker->exec();
@@ -147,7 +147,22 @@ void TargetListWindow::sort(int col)
     }
 }
 
-void TargetListWindow::setMainPic (QPixmap image) {
-    mainpic = image.scaled(381, 381, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation) ;
-    ui->mainpic->setPixmap(mainpic);
+void TargetListWindow::setMainPic (QString imagePath) {
+    if (imagePath != "") {
+        QPixmap *pix = new QPixmap();
+        pix->load(imagePath);
+        mainpic = pix->scaled(381, 381, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation) ;
+        ui->mainpic->setPixmap(mainpic);
+    }
+}
+
+void TargetListWindow::loadTargets(QString folderPath, QString filePath){
+    QSettings resultFile(filePath,QSettings::IniFormat);
+    for ( int i = 1 ; i <= resultFile.value("Crop Info/Number of Crops").toInt() ; i ++ ){
+        QString imagePath = resultFile.value("Crop "+QString::number(i)+"/Image Name").toString() ;
+        QString name = imagePath ;
+        QString coord = resultFile.value("Crop "+QString::number(i)+"/X").toString()+", "+resultFile.value("Crop "+QString::number(i)+"/Y").toString() ;
+        QString desc = "" ;
+        targetList->addNewRow(folderPath+"/"+imagePath,name,coord,desc) ;
+    }
 }
