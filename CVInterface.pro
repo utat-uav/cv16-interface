@@ -15,12 +15,22 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     imagewidget.cpp \
-    itemmaker.cpp
+    itemmaker.cpp \
+    targetlistwindow.cpp \
+    targetlist.cpp \
+    targetlistitem.cpp \
+    targetmaker.cpp
 
 HEADERS  += mainwindow.h \
     imagewidget.h \
-    itemmaker.h
+    itemmaker.h \
+    targetlistwindow.h \
+    targetlist.h \
+    targetlistitem.h \
+    targetmaker.h
 
 FORMS    += mainwindow.ui \
     imagewidget.ui \
-    itemmaker.ui
+    itemmaker.ui \
+    targetlistwindow.ui \
+    targetmaker.ui

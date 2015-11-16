@@ -32,14 +32,14 @@ void MainWindow::resizeEvent(QResizeEvent* e)
     QWidget::resizeEvent(e);
 }
 
-void MainWindow::addItem(QString filePath)
+/*void MainWindow::addItem(QString filePath)
 {
     resizeTable();
 
     // Creates new item object and adds it to the list of items
     appendItem(":/images/Untitled.png", "New Item");
 
-    /*
+
     // Calculate and set the number of rows based on number of items and number of columns
     rowCount = ceil((double) items->size() / (double) colCount);
     ui->photoListTable->setRowCount(rowCount);
@@ -51,10 +51,10 @@ void MainWindow::addItem(QString filePath)
     int c = (items->size() - r*colCount) % (colCount+1) - 1;
 
     // Adds object to the table in the correct position
-    ui->photoListTable->setCellWidget(r, c, newImage); */
+    ui->photoListTable->setCellWidget(r, c, newImage);
 
     refreshTable();
-}
+}*/
 
 void MainWindow::resizeTable()
 {
@@ -101,7 +101,9 @@ void MainWindow::refreshTable()
         // Copy all information over
         temp->setImage(items->at(i)->image);
         temp->setTitle(items->at(i)->title);
-        temp->path = items->at(i)->path;
+        temp->setFilePath(items->at(i)->filePath);
+        temp->setFolderPath(items->at(i)->folderPath);
+        temp->imagePath = items->at(i)->imagePath;
 
         itemsCopy->append(temp);
     }
@@ -144,12 +146,14 @@ void MainWindow::refreshTable()
     }
 }
 
-void MainWindow::appendItem(QString filePath, QString title)
+void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title)
 {
     // Creates item
     ImageWidget *newWidget = new ImageWidget();
     newWidget->setTitle(title);
-    newWidget->setImage(filePath);
+    newWidget->setImage(imagePath);
+    newWidget->setFilePath(filePath) ;
+    newWidget->setFolderPath(folderPath) ;
 
     items->append(newWidget);
 }
@@ -170,22 +174,38 @@ void MainWindow::on_loadButton_clicked()
 
     // Create filter
     QStringList nameFilter;
-    nameFilter.append("*.png");
+    nameFilter.append("*.ini");
+
+    // Scans through directory, applying the filter
+    QDir directory(dir);
+    QStringList fileList = directory.entryList(nameFilter);
+
+    // Goes through each file and opening the image
+    foreach ( QString file, fileList){
+        QString filePath = dir+"/"+file ;
+        QSettings resultFile(filePath,QSettings::IniFormat);
+        QString imagePath = resultFile.value("Analysis Parameters/IMAGE","").toString() ; //pass directory to image widget
+        if ( imagePath != "" ){
+            appendItem(dir, filePath, dir+"/"+imagePath, imagePath);
+        }
+    }
+
+    /*nameFilter.append("*.png");
     nameFilter.append("*.jpg");
 
     // Scans through directory, applying the filter
     QDir directory(dir);
     QStringList fileList = directory.entryList(nameFilter);
-    for (int i = 0; i < fileList.size(); i++) {
-        appendItem(dir+"/"+fileList.at(i), fileList.at(i));
-    }
+    foreach (QString filePath, fileList) {
+        appendItem(dir+"/"+filePath, filePath);
+    }*/
 
     refreshTable();
 }
 
 void MainWindow::on_addItemButton_clicked()
 {
-    addItem("");
+    //addItem("");
 }
 
 void MainWindow::on_editButton_clicked()
@@ -205,7 +225,7 @@ void MainWindow::on_editButton_clicked()
 
         // Sets initial information
         editDialog->setTitle(items->at(selectedIndex)->title);
-        editDialog->setFilePath(items->at(selectedIndex)->path);
+        editDialog->setFilePath(items->at(selectedIndex)->imagePath);
 
         // Starts the dialog
         editDialog->exec();

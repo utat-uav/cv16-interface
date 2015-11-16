@@ -5,7 +5,7 @@ ImageWidget::ImageWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ImageWidget)
 {
-    path = "";
+    imagePath = "";
     title = "";
     ui->setupUi(this);
 
@@ -27,15 +27,22 @@ void ImageWidget::setTitle(QString name)
     title = name;
 }
 
-void ImageWidget::setImage(QString filePath)
+void ImageWidget::setFolderPath(QString folderPath){
+    this->folderPath = folderPath ;
+}
+
+void ImageWidget::setFilePath(QString filePath){
+    this->filePath = filePath ;
+}
+
+void ImageWidget::setImage(QString imagePath)
 {
-    if (filePath != "") {
+    if (imagePath != "") {
         QPixmap *pix = new QPixmap();
-        pix->load(filePath);
+        pix->load(imagePath);
         image = pix->scaled(240, 240, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation);
         ui->imageLabel->setPixmap(image);
-        path = filePath;
-        delete pix;
+        this->imagePath = imagePath;
     }
 }
 
@@ -43,4 +50,14 @@ void ImageWidget::setImage(QPixmap resizedImage)
 {
     ui->imageLabel->setPixmap(resizedImage);
     image = resizedImage;
+}
+
+void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
+    if ( event->button() == Qt::LeftButton ){
+        TargetListWindow *targetWindow = new TargetListWindow ;
+        targetWindow->show() ;
+        targetWindow->setWindowTitle(title);
+        targetWindow->setMainPic(imagePath);
+        targetWindow->loadTargets(folderPath, filePath) ;
+    }
 }
