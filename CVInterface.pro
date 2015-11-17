@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     targetlistwindow.cpp \
     targetlist.cpp \
     targetlistitem.cpp \
-    targetmaker.cpp
+    targetmaker.cpp \
+    targetwindow.cpp
 
 HEADERS  += mainwindow.h \
     imagewidget.h \
@@ -27,10 +28,22 @@ HEADERS  += mainwindow.h \
     targetlistwindow.h \
     targetlist.h \
     targetlistitem.h \
-    targetmaker.h
+    targetmaker.h \
+    targetwindow.h
 
 FORMS    += mainwindow.ui \
     imagewidget.ui \
     itemmaker.ui \
     targetlistwindow.ui \
-    targetmaker.ui
+    targetmaker.ui \
+    targetwindow.ui
+
+DISTFILES += \
+    clasic.png \
+    delete85.png \
+    down.png \
+    round75.png \
+    up.png
+
+RESOURCES += \
+    resouces.qrc

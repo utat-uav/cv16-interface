@@ -5,6 +5,7 @@
 #include <QResizeEvent>
 #include "imagewidget.h"
 #include <QDebug>
+#include <QThread>
 #include <math.h>
 #include <QItemSelectionModel>
 #include <QModelIndexList>
@@ -34,6 +35,8 @@ private slots:
     void on_editButton_clicked();
 
     void on_deleteItemButton_clicked();
+
+    friend class MainLoader;
 
 protected:
     void resizeEvent(QResizeEvent *e);

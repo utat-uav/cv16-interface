@@ -23,6 +23,7 @@ void MainWindow::setColumnCount(int col) {
 
 MainWindow::~MainWindow()
 {
+    delete items;
     delete ui;
 }
 
@@ -31,30 +32,6 @@ void MainWindow::resizeEvent(QResizeEvent* e)
     resizeTable();
     QWidget::resizeEvent(e);
 }
-
-/*void MainWindow::addItem(QString filePath)
-{
-    resizeTable();
-
-    // Creates new item object and adds it to the list of items
-    appendItem(":/images/Untitled.png", "New Item");
-
-
-    // Calculate and set the number of rows based on number of items and number of columns
-    rowCount = ceil((double) items->size() / (double) colCount);
-    ui->photoListTable->setRowCount(rowCount);
-
-    // Calculate row index
-    int r = rowCount - 1;
-
-    // Calculate column index
-    int c = (items->size() - r*colCount) % (colCount+1) - 1;
-
-    // Adds object to the table in the correct position
-    ui->photoListTable->setCellWidget(r, c, newImage);
-
-    refreshTable();
-}*/
 
 void MainWindow::resizeTable()
 {
@@ -144,6 +121,8 @@ void MainWindow::refreshTable()
             }
         }
     }
+
+    delete itemsCopy;
 }
 
 void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title)
@@ -171,7 +150,6 @@ void MainWindow::on_loadButton_clicked()
 {
     // Gets the directory from a separate window
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-
     // Create filter
     QStringList nameFilter;
     nameFilter.append("*.ini");
@@ -202,6 +180,8 @@ void MainWindow::on_loadButton_clicked()
 
     refreshTable();
 }
+
+
 
 void MainWindow::on_addItemButton_clicked()
 {
@@ -240,6 +220,8 @@ void MainWindow::on_editButton_clicked()
             items->at(selectedIndex)->setTitle(title);
             items->at(selectedIndex)->setImage(filePath);
         }
+
+        delete editDialog;
     }
 }
 

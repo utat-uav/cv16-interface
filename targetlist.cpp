@@ -13,6 +13,10 @@ TargetList::TargetList(QTableWidget *targetListTable)
     defaultImagePath = ":/files/Untitled.png";
 }
 
+TargetList::~TargetList()
+{
+    delete rows;
+}
 
 void TargetList::refreshTable()
 {
@@ -43,7 +47,7 @@ void TargetList::refreshTable()
     }
 }
 
-void TargetList::addNewRow(QString fileName, QString name, QString coordinates, QString description)
+void TargetList::addNewRow(QString fileName, QString name, QString coordinates, QString description, bool refresh)
 {
     // Creates image preview item
     QTableWidgetItem *image = new QTableWidgetItem();
@@ -78,9 +82,10 @@ void TargetList::addNewRow(QString fileName, QString name, QString coordinates, 
     // Places item in a TargetListItem and adds it to the target list
     TargetListItem *newItem = new TargetListItem(image, nameItem, coordItem, descItem);
     newItem->imageFilePath = fileName;
-    rows->prepend(newItem);
+    rows->append(newItem);
 
-    refreshTable();
+    if (refresh)
+        refreshTable();
 }
 
 void TargetList::editRow(int row, QString fileName, QString name, QString coordinates, QString description)

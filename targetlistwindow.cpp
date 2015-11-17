@@ -2,9 +2,11 @@
 #include "ui_targetlistwindow.h"
 
 TargetListWindow::TargetListWindow(QWidget *parent) :
-    QMainWindow(parent),
+    QDialog(parent),
     ui(new Ui::TargetListWindow)
 {
+    this->loader = NULL;
+
     colCount = 5;
     ui->setupUi(this);
     targetList = new TargetList(ui->targetListTable);
@@ -21,7 +23,13 @@ TargetListWindow::TargetListWindow(QWidget *parent) :
 
 TargetListWindow::~TargetListWindow()
 {
+    if (loader != 0 && loader->isRunning()) {
+        loader->requestInterruption();
+        loader->wait();
+    }
+
     delete ui;
+    delete targetList;
 }
 
 void TargetListWindow::on_newItem_clicked()
@@ -33,6 +41,7 @@ void TargetListWindow::on_newItem_clicked()
     if (targetMaker->accepted) {
         targetList->addNewRow(targetMaker->getImageFilePath(), targetMaker->getName(), targetMaker->getCoord(), targetMaker->getDesc());
     }
+    delete targetMaker;
 }
 
 void TargetListWindow::on_edit_clicked()
@@ -62,6 +71,8 @@ void TargetListWindow::on_edit_clicked()
         if (targetEditor->accepted) {
             targetList->editRow(selectedRow, targetEditor->getImageFilePath(), targetEditor->getName(), targetEditor->getCoord(), targetEditor->getDesc());
         }
+
+        delete targetEditor;
     }
 }
 
@@ -149,20 +160,56 @@ void TargetListWindow::sort(int col)
 
 void TargetListWindow::setMainPic (QString imagePath) {
     if (imagePath != "") {
-        QPixmap *pix = new QPixmap();
-        pix->load(imagePath);
-        mainpic = pix->scaled(381, 381, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation) ;
+        QPixmap pix;
+        pix.load(imagePath);
+        mainpic = pix.scaled(381, 381, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation) ;
         ui->mainpic->setPixmap(mainpic);
     }
 }
 
 void TargetListWindow::loadTargets(QString folderPath, QString filePath){
-    QSettings resultFile(filePath,QSettings::IniFormat);
+    // Starts a new thread to load it
+    loader = new Loader(targetList, folderPath, filePath);
+    loader->start();
+    //connect(loader, SIGNAL(finished()), loader, SLOT(deleteLater()));
+}
+
+void Loader::run()
+{
+    QSettings resultFile(filePath, QSettings::IniFormat);
     for ( int i = 1 ; i <= resultFile.value("Crop Info/Number of Crops").toInt() ; i ++ ){
-        QString imagePath = resultFile.value("Crop "+QString::number(i)+"/Image Name").toString() ;
-        QString name = imagePath ;
-        QString coord = resultFile.value("Crop "+QString::number(i)+"/X").toString()+", "+resultFile.value("Crop "+QString::number(i)+"/Y").toString() ;
-        QString desc = "" ;
-        targetList->addNewRow(folderPath+"/"+imagePath,name,coord,desc) ;
+        if (!this->isInterruptionRequested()) {
+            QString imagePath = resultFile.value("Crop "+QString::number(i)+"/Image Name").toString() ;
+            QString name = imagePath ;
+            QString coord = resultFile.value("Crop "+QString::number(i)+"/X").toString()+", "+resultFile.value("Crop "+QString::number(i)+"/Y").toString() ;
+            QString desc = "" ;
+            try {
+                targetList->addNewRow(folderPath+"/"+imagePath,name,coord,desc);
+            }
+            catch (std::exception& e) {
+                return;
+            }
+        }
     }
+
+    if (!this->isInterruptionRequested()) {
+        try {
+            targetList->refreshTable();
+        }
+        catch (std::exception& e) {
+            return;
+        }
+    }
+}
+
+void TargetListWindow::on_targetListTable_doubleClicked(const QModelIndex &index)
+{
+    int rowNum = index.row();
+    TargetWindow *targetWindow = new TargetWindow(targetList->rows->at(rowNum), this);
+    targetWindow->setModal(true);
+    targetWindow->setWindowTitle("Target");
+
+    // Opens edit window
+    targetWindow->exec();
+    delete targetWindow;
 }

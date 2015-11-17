@@ -43,6 +43,7 @@ void ImageWidget::setImage(QString imagePath)
         image = pix->scaled(240, 240, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation);
         ui->imageLabel->setPixmap(image);
         this->imagePath = imagePath;
+        delete pix;
     }
 }
 
@@ -55,9 +56,11 @@ void ImageWidget::setImage(QPixmap resizedImage)
 void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
     if ( event->button() == Qt::LeftButton ){
         TargetListWindow *targetWindow = new TargetListWindow ;
-        targetWindow->show() ;
+        targetWindow->setModal(true);
         targetWindow->setWindowTitle(title);
         targetWindow->setMainPic(imagePath);
         targetWindow->loadTargets(folderPath, filePath) ;
+        targetWindow->exec();
+        delete targetWindow;
     }
 }

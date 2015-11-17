@@ -10,7 +10,7 @@ public:
     QList<TargetListItem *> *rows; //= new QList<TargetListItem *>;
     QTableWidget *table;
     QString defaultImagePath; // = ":/files/Untitled.png";
-    void addNewRow(QString fileName, QString name, QString coordinates, QString description);
+    void addNewRow(QString fileName, QString name, QString coordinates, QString description, bool refresh = true);
     void refreshTable();
     void editRow(int row, QString fileName, QString name, QString coordinates, QString description);
     void deleteRow(int row);
