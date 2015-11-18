@@ -4,6 +4,8 @@
 #include <QLabel>
 #include <QWidget>
 
+// NOTE: This is a glorified struct. All it does is store information
+
 class TargetListItem
 {
 public:

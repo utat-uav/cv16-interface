@@ -14,11 +14,11 @@ class ItemMaker : public QDialog
 
 public:
     explicit ItemMaker(QWidget *parent = 0);
-    bool accepted;
     QString getTitle();
     QString getFilePath();
     void setTitle(QString title);
     void setFilePath(QString path);
+    bool getAccepted();
     ~ItemMaker();
 
 private slots:
@@ -27,6 +27,7 @@ private slots:
     void on_buttonBox_accepted();
 
 private:
+    bool accepted;
     Ui::ItemMaker *ui;
 };
 

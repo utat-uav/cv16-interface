@@ -25,6 +25,31 @@ ImageWidget::~ImageWidget()
     delete ui;
 }
 
+QString ImageWidget::getTitle() const
+{
+    return this->title;
+}
+
+QString ImageWidget::getImagePath() const
+{
+    return this->imagePath;
+}
+
+QPixmap ImageWidget::getImage() const
+{
+    return this->image;
+}
+
+QString ImageWidget::getFolderPath() const
+{
+    return this->folderPath;
+}
+
+QString ImageWidget::getFilePath() const
+{
+    return this->filePath;
+}
+
 void ImageWidget::setTitle(QString name)
 {
     ui->imageCaption->setText(name);
@@ -37,6 +62,11 @@ void ImageWidget::setFolderPath(QString folderPath){
 
 void ImageWidget::setFilePath(QString filePath){
     this->filePath = filePath ;
+}
+
+void ImageWidget::setImagePath(QString imagePath)
+{
+    this->imagePath = imagePath;
 }
 
 void ImageWidget::setImage(QString imagePath)

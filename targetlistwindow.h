@@ -38,8 +38,6 @@ class TargetListWindow : public QDialog
 public:
     explicit TargetListWindow(QWidget *parent = 0);
     Ui::TargetListWindow *ui ;
-    TargetList *targetList;
-    int colCount;
     ~TargetListWindow();
     void setMainPic (QString imagePath) ;
     void loadTargets (QString folderPath, QString filePath) ;
@@ -68,6 +66,8 @@ private:
     QPixmap mainpic ;
     int mainPicWidth, mainPicHeight;
     QSettings *resultFile;
+    TargetList *targetList;
+    int colCount;
 };
 
 #endif // TARGETLISTWINDOW_H

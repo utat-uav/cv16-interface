@@ -14,15 +14,19 @@ class TargetMaker : public QDialog
 public:
     explicit TargetMaker(QWidget *parent = 0);
     ~TargetMaker();
-    bool accepted; // = false;
-    QString defaultNameInput; // = "";
-    QString defaultCoordInput; // = "";
-    QString defaultDescInput; // = "";
-    QString defaultFileInput; // = "";
-    QString getName();
-    QString getDesc();
-    QString getCoord();
-    QString getImageFilePath();
+
+    // Getters
+    QString getName() const;
+    QString getDesc() const;
+    QString getCoord() const;
+    QString getImageFilePath() const;
+    bool getAccepted() const;
+
+    // Setters
+    void setDefaultNameInput(QString defaultNameInput);
+    void setDefaultCoordInput(QString defaultCoordInput);
+    void setDefaultDescInput(QString defaultDescInput);
+    void setDefaultFileInput(QString defaultFileInput);
     void setDefaultInputs();
 
 private slots:
@@ -34,6 +38,12 @@ private slots:
 
 private:
     Ui::TargetMaker *ui;
+
+    bool accepted; // = false;
+    QString defaultNameInput; // = "";
+    QString defaultCoordInput; // = "";
+    QString defaultDescInput; // = "";
+    QString defaultFileInput; // = "";
 };
 
 #endif // TARGETMAKER_H

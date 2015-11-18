@@ -20,22 +20,27 @@ TargetMaker::~TargetMaker()
     delete ui;
 }
 
-QString TargetMaker::getImageFilePath()
+bool TargetMaker::getAccepted() const
+{
+    return this->accepted;
+}
+
+QString TargetMaker::getImageFilePath() const
 {
     return ui->fileInput->text();
 }
 
-QString TargetMaker::getName()
+QString TargetMaker::getName() const
 {
     return ui->nameInput->text();
 }
 
-QString TargetMaker::getDesc()
+QString TargetMaker::getDesc() const
 {
     return ui->descriptionInput->toPlainText();
 }
 
-QString TargetMaker::getCoord()
+QString TargetMaker::getCoord() const
 {
     return ui->coordinateInput->text();
 }
@@ -46,6 +51,26 @@ void TargetMaker::setDefaultInputs()
     ui->nameInput->setText(defaultNameInput);
     ui->coordinateInput->setText(defaultCoordInput);
     ui->descriptionInput->setText(defaultDescInput);
+}
+
+void TargetMaker::setDefaultNameInput(QString defaultNameInput)
+{
+    this->defaultNameInput = defaultNameInput;
+}
+
+void TargetMaker::setDefaultCoordInput(QString defaultCoordInput)
+{
+    this->defaultCoordInput = defaultCoordInput;
+}
+
+void TargetMaker::setDefaultDescInput(QString defaultDescInput)
+{
+    this->defaultDescInput = defaultDescInput;
+}
+
+void TargetMaker::setDefaultFileInput(QString defaultFileInput)
+{
+    this->defaultFileInput = defaultFileInput;
 }
 
 void TargetMaker::on_buttonBox_accepted()

@@ -18,21 +18,32 @@ class ImageWidget : public QWidget
 
 public:
     explicit ImageWidget(QWidget *parent = 0);
-    QString title;
-    QString filePath ;
-    QString imagePath;
-    QString folderPath ;
-    QPixmap image;
+
+    // Setters
     void setTitle(QString name);
     void setImage(QString imagePath);
     void setImage(QPixmap resizedImage);
     void setFolderPath(QString folderPath) ;
     void setFilePath(QString filePath) ;
+    void setImagePath(QString imagePath);
+
+    // Getters
+    QString getTitle() const;
+    QString getImagePath() const;
+    QPixmap getImage() const;
+    QString getFolderPath() const;
+    QString getFilePath() const;
+
     ~ImageWidget();
     TargetListWindow *targetList;
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
+    QString title;
+    QString filePath ;
+    QString imagePath;
+    QString folderPath ;
+    QPixmap image;
 
 private:
     Ui::ImageWidget *ui;

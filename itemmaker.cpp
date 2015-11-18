@@ -25,6 +25,11 @@ void ItemMaker::on_buttonBox_accepted()
     accepted = true;
 }
 
+bool ItemMaker::getAccepted()
+{
+    return this->accepted;
+}
+
 QString ItemMaker::getTitle()
 {
     return ui->titleInput->text();

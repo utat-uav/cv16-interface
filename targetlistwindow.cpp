@@ -44,7 +44,7 @@ void TargetListWindow::on_newItem_clicked()
     targetMaker->setModal(true);
     targetMaker->setWindowTitle("Create New Target");
     targetMaker->exec();
-    if (targetMaker->accepted) {
+    if (targetMaker->getAccepted()) {
         targetList->addNewRow(targetMaker->getImageFilePath(), targetMaker->getName(), targetMaker->getCoord(), targetMaker->getDesc(), 0, 0);
     }
     delete targetMaker;
@@ -65,16 +65,16 @@ void TargetListWindow::on_edit_clicked()
         targetEditor->setWindowTitle("Edit Target");
 
         // Sets default values
-        targetEditor->defaultFileInput = targetList->rows->at(selectedRow)->imageFilePath;
-        targetEditor->defaultNameInput = targetList->rows->at(selectedRow)->name->text();
-        targetEditor->defaultCoordInput = targetList->rows->at(selectedRow)->coord->text();
-        targetEditor->defaultDescInput = targetList->rows->at(selectedRow)->desc->text();
+        targetEditor->setDefaultFileInput(targetList->getRows()->at(selectedRow)->imageFilePath);
+        targetEditor->setDefaultNameInput(targetList->getRows()->at(selectedRow)->name->text());
+        targetEditor->setDefaultCoordInput(targetList->getRows()->at(selectedRow)->coord->text());
+        targetEditor->setDefaultDescInput(targetList->getRows()->at(selectedRow)->desc->text());
         targetEditor->setDefaultInputs();
 
         // Opens edit window
         targetEditor->exec();
 
-        if (targetEditor->accepted) {
+        if (targetEditor->getAccepted()) {
             targetList->editRow(selectedRow, targetEditor->getImageFilePath(), targetEditor->getName(), targetEditor->getCoord(), targetEditor->getDesc());
         }
 
@@ -144,7 +144,7 @@ void TargetListWindow::on_downButton_clicked()
 
         ui->targetListTable->selectionModel()->clearSelection(); // Deselects all rows
         QItemSelection selectedItems = ui->targetListTable->selectionModel()->selection();
-        if (moveOrder[0] != targetList->rows->length()-1) {
+        if (moveOrder[0] != targetList->getRows()->length()-1) {
             for (int i = 0; i < moveOrder.length(); i++) {
                 ui->targetListTable->selectRow(moveOrder[i]+1);
                 selectedItems.merge(ui->targetListTable->selectionModel()->selection(), QItemSelectionModel::Select);
@@ -159,7 +159,7 @@ void TargetListWindow::on_downButton_clicked()
 void TargetListWindow::sort(int col)
 {
     if (col == 1) {
-        targetList->sortName(0, targetList->rows->length()-1);
+        targetList->sortName(0, targetList->getRows()->length()-1);
         targetList->refreshTable();
     }
 }
@@ -219,7 +219,7 @@ void Loader::run()
 void TargetListWindow::on_targetListTable_doubleClicked(const QModelIndex &index)
 {
     int rowNum = index.row();
-    TargetWindow *targetWindow = new TargetWindow(targetList->rows->at(rowNum), this);
+    TargetWindow *targetWindow = new TargetWindow(targetList->getRows()->at(rowNum), this);
     targetWindow->setModal(true);
     targetWindow->setWindowTitle("Target");
 
@@ -231,7 +231,7 @@ void TargetListWindow::on_targetListTable_doubleClicked(const QModelIndex &index
 void TargetListWindow::on_targetListTable_clicked(const QModelIndex &index)
 {
     int rowNum = index.row();
-    TargetListItem* rowItem = targetList->rows->at(rowNum);
+    TargetListItem* rowItem = targetList->getRows()->at(rowNum);
     int x = rowItem->x;
     int y = rowItem->y;
 

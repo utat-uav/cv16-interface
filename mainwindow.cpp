@@ -81,13 +81,20 @@ void MainWindow::refreshTable()
     for (int i = 0; i < items->size(); i++) {
         ImageWidget *temp = new ImageWidget();
         // Copy all information over
-        temp->setImage(items->at(i)->image);
-        temp->setTitle(items->at(i)->title);
-        temp->setFilePath(items->at(i)->filePath);
-        temp->setFolderPath(items->at(i)->folderPath);
-        temp->imagePath = items->at(i)->imagePath;
+        temp->setImage(items->at(i)->getImage());
+        temp->setTitle(items->at(i)->getTitle());
+        temp->setFilePath(items->at(i)->getFilePath());
+        temp->setFolderPath(items->at(i)->getFolderPath());
+        temp->setImagePath(items->at(i)->getImagePath());
+
+        // Preserve the old targetList window
+        delete temp->targetList;
+        temp->targetList = items->at(i)->targetList;
+        items->at(i)->targetList = NULL;
 
         itemsCopy->append(temp);
+
+        delete &*(items->at(i));
     }
 
     // Clears table
@@ -127,6 +134,7 @@ void MainWindow::refreshTable()
         }
     }
 
+    // Take care of memory
     delete itemsCopy;
 }
 
@@ -208,14 +216,14 @@ void MainWindow::on_editButton_clicked()
         editDialog->setWindowTitle("Edit");
 
         // Sets initial information
-        editDialog->setTitle(items->at(selectedIndex)->title);
-        editDialog->setFilePath(items->at(selectedIndex)->imagePath);
+        editDialog->setTitle(items->at(selectedIndex)->getTitle());
+        editDialog->setFilePath(items->at(selectedIndex)->getImagePath());
 
         // Starts the dialog
         editDialog->exec();
 
         // If okay was pressed in the edit dialog
-        if (editDialog->accepted) {
+        if (editDialog->getAccepted()) {
             // Gets information from edit dialog
             QString title = editDialog->getTitle();
             QString filePath = editDialog->getFilePath();

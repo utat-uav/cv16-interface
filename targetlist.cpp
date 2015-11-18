@@ -18,6 +18,11 @@ TargetList::~TargetList()
     delete rows;
 }
 
+QList<TargetListItem *>* TargetList::getRows() const
+{
+    return this->rows;
+}
+
 void TargetList::refreshTable()
 {
     // Empty the table first
