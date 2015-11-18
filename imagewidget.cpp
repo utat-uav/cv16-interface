@@ -87,6 +87,27 @@ void ImageWidget::setImage(QPixmap resizedImage)
     image = resizedImage;
 }
 
+bool ImageWidget::isInitialized() const
+{
+    return this->targetListInitialized;
+}
+
+void ImageWidget::deleteTargetListWindow()
+{
+    delete this->targetList;
+}
+
+void ImageWidget::changeTargetListWindow(TargetListWindow* targetList, bool alreadyInitialized)
+{
+    this->targetList = targetList;
+    this->targetListInitialized = alreadyInitialized;
+}
+
+TargetListWindow* ImageWidget::getTargetList() const
+{
+    return this->targetList;
+}
+
 void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
     if ( event->button() == Qt::LeftButton ){
         if (!targetListInitialized) {

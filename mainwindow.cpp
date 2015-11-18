@@ -88,9 +88,9 @@ void MainWindow::refreshTable()
         temp->setImagePath(items->at(i)->getImagePath());
 
         // Preserve the old targetList window
-        delete temp->targetList;
-        temp->targetList = items->at(i)->targetList;
-        items->at(i)->targetList = NULL;
+        temp->deleteTargetListWindow();
+        temp->changeTargetListWindow(items->at(i)->getTargetList(), items->at(i)->isInitialized());
+        items->at(i)->changeTargetListWindow(NULL);
 
         itemsCopy->append(temp);
 

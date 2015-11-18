@@ -33,9 +33,14 @@ public:
     QPixmap getImage() const;
     QString getFolderPath() const;
     QString getFilePath() const;
+    TargetListWindow* getTargetList() const;
+    bool isInitialized() const;
+
+    void deleteTargetListWindow();
+
+    void changeTargetListWindow(TargetListWindow* targetList, bool alreadyInitialized = true);
 
     ~ImageWidget();
-    TargetListWindow *targetList;
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
@@ -44,10 +49,11 @@ protected:
     QString imagePath;
     QString folderPath ;
     QPixmap image;
+    TargetListWindow *targetList;
+    bool targetListInitialized;
 
 private:
     Ui::ImageWidget *ui;
-    bool targetListInitialized;
 };
 
 #endif // IMAGEWIDGET_H
