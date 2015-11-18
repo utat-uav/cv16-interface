@@ -6,6 +6,9 @@
 #include "targetwindow.h"
 #include "targetlist.h"
 #include <QSettings>
+#include <QPainter>
+#include <QPixmap>
+#include <QColor>
 #include <QThread>
 
 // LOADER THREAD
@@ -56,11 +59,15 @@ private slots:
 
     void on_targetListTable_doubleClicked(const QModelIndex &index);
 
+    void on_targetListTable_clicked(const QModelIndex &index);
+
 private:
     //TargetMaker *targetMaker;
     TargetMaker *targetEditor;
     Loader *loader;
     QPixmap mainpic ;
+    int mainPicWidth, mainPicHeight;
+    QSettings *resultFile;
 };
 
 #endif // TARGETLISTWINDOW_H

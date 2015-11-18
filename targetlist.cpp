@@ -47,7 +47,7 @@ void TargetList::refreshTable()
     }
 }
 
-void TargetList::addNewRow(QString fileName, QString name, QString coordinates, QString description, bool refresh)
+void TargetList::addNewRow(QString fileName, QString name, QString coordinates, QString description, int x, int y, bool refresh)
 {
     // Creates image preview item
     QTableWidgetItem *image = new QTableWidgetItem();
@@ -58,7 +58,7 @@ void TargetList::addNewRow(QString fileName, QString name, QString coordinates, 
     else
         brushImage.load(fileName);
     // Resize image
-    int width = 150;
+    int width = 100;
     int height = 100;
     QImage scaledBrushImage = brushImage.scaled(width, height, Qt::IgnoreAspectRatio);
     // Apply resized image
@@ -80,7 +80,7 @@ void TargetList::addNewRow(QString fileName, QString name, QString coordinates, 
     descItem->setText(description);
 
     // Places item in a TargetListItem and adds it to the target list
-    TargetListItem *newItem = new TargetListItem(image, nameItem, coordItem, descItem);
+    TargetListItem *newItem = new TargetListItem(image, nameItem, coordItem, descItem, x, y);
     newItem->imageFilePath = fileName;
     rows->append(newItem);
 
@@ -98,7 +98,7 @@ void TargetList::editRow(int row, QString fileName, QString name, QString coordi
     else
         brushImage.load(fileName);
     // Resize image
-    int width = 150;
+    int width = 100;
     int height = 100;
     QImage scaledBrushImage = brushImage.scaled(width, height, Qt::IgnoreAspectRatio);
     // Apply resized image

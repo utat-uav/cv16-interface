@@ -32,7 +32,7 @@ public:
     {
         if (ImageWidget->objectName().isEmpty())
             ImageWidget->setObjectName(QStringLiteral("ImageWidget"));
-        ImageWidget->resize(400, 300);
+        ImageWidget->resize(414, 224);
         verticalLayout_2 = new QVBoxLayout(ImageWidget);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout = new QVBoxLayout();

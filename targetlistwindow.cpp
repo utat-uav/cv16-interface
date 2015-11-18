@@ -13,9 +13,14 @@ TargetListWindow::TargetListWindow(QWidget *parent) :
     connect(ui->targetListTable->horizontalHeader(), SIGNAL(sectionClicked(int)),
          this, SLOT(sort(int)));
 
+    mainPicWidth = 0;
+    mainPicHeight = 0;
+
+    resultFile = NULL;
+
     // Set row size
     ui->targetListTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    ui->targetListTable->horizontalHeader()->setDefaultSectionSize(150);
+    ui->targetListTable->horizontalHeader()->setDefaultSectionSize(100);
     ui->targetListTable->horizontalHeader()->setMinimumSectionSize(100);
     ui->targetListTable->verticalHeader()->setDefaultSectionSize(100);
     //ui->targetListTable->setStyleSheet("QTableWidget {selection-background-color: #00000000; selection-color: white}");
@@ -30,6 +35,7 @@ TargetListWindow::~TargetListWindow()
 
     delete ui;
     delete targetList;
+    delete resultFile;
 }
 
 void TargetListWindow::on_newItem_clicked()
@@ -39,7 +45,7 @@ void TargetListWindow::on_newItem_clicked()
     targetMaker->setWindowTitle("Create New Target");
     targetMaker->exec();
     if (targetMaker->accepted) {
-        targetList->addNewRow(targetMaker->getImageFilePath(), targetMaker->getName(), targetMaker->getCoord(), targetMaker->getDesc());
+        targetList->addNewRow(targetMaker->getImageFilePath(), targetMaker->getName(), targetMaker->getCoord(), targetMaker->getDesc(), 0, 0);
     }
     delete targetMaker;
 }
@@ -171,6 +177,12 @@ void TargetListWindow::loadTargets(QString folderPath, QString filePath){
     // Starts a new thread to load it
     loader = new Loader(targetList, folderPath, filePath);
     loader->start();
+
+    // Get height
+    resultFile = new QSettings(filePath, QSettings::IniFormat);
+    mainPicWidth = resultFile->value("Analysis Parameters/Width").toInt();
+    mainPicHeight = resultFile->value("Analysis Parameters/Height").toInt();
+
     //connect(loader, SIGNAL(finished()), loader, SLOT(deleteLater()));
 }
 
@@ -182,9 +194,11 @@ void Loader::run()
             QString imagePath = resultFile.value("Crop "+QString::number(i)+"/Image Name").toString() ;
             QString name = imagePath ;
             QString coord = resultFile.value("Crop "+QString::number(i)+"/X").toString()+", "+resultFile.value("Crop "+QString::number(i)+"/Y").toString() ;
+            int x = resultFile.value("Crop "+QString::number(i)+"/X").toInt();
+            int y = resultFile.value("Crop "+QString::number(i)+"/Y").toInt();
             QString desc = "" ;
             try {
-                targetList->addNewRow(folderPath+"/"+imagePath,name,coord,desc);
+                targetList->addNewRow(folderPath+"/"+imagePath,name,coord,desc, x, y);
             }
             catch (std::exception& e) {
                 return;
@@ -212,4 +226,31 @@ void TargetListWindow::on_targetListTable_doubleClicked(const QModelIndex &index
     // Opens edit window
     targetWindow->exec();
     delete targetWindow;
+}
+
+void TargetListWindow::on_targetListTable_clicked(const QModelIndex &index)
+{
+    int rowNum = index.row();
+    TargetListItem* rowItem = targetList->rows->at(rowNum);
+    int x = rowItem->x;
+    int y = rowItem->y;
+
+    QPixmap pixmap;
+    QPainter painter;
+    QPen white(Qt::white);
+
+    pixmap = this->mainpic;
+    painter.begin(&pixmap);
+    painter.setPen(white);
+
+    // Draw Box around target
+    QRect rect;
+    int boxSize = pixmap.width()/15;
+    rect.setX((double) x/mainPicWidth*pixmap.width()-boxSize/2);
+    rect.setY((double) y/mainPicHeight*pixmap.height()-boxSize/2);
+    rect.setHeight(boxSize);
+    rect.setWidth(boxSize);
+    painter.drawRect(rect);
+    painter.end();
+    ui->mainpic->setPixmap(pixmap);
 }

@@ -42,7 +42,7 @@ public:
     {
         if (TargetListWindow->objectName().isEmpty())
             TargetListWindow->setObjectName(QStringLiteral("TargetListWindow"));
-        TargetListWindow->resize(1009, 431);
+        TargetListWindow->resize(1009, 401);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -59,7 +59,7 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(mainpic->sizePolicy().hasHeightForWidth());
         mainpic->setSizePolicy(sizePolicy1);
-        mainpic->setMinimumSize(QSize(350, 0));
+        mainpic->setMinimumSize(QSize(450, 0));
         mainpic->setAutoFillBackground(true);
         mainpic->setFrameShape(QFrame::NoFrame);
         mainpic->setFrameShadow(QFrame::Sunken);

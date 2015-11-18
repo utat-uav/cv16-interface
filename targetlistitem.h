@@ -7,12 +7,13 @@
 class TargetListItem
 {
 public:
-    TargetListItem(QTableWidgetItem *i, QTableWidgetItem *n, QTableWidgetItem *c, QTableWidgetItem *d);
+    TargetListItem(QTableWidgetItem *i, QTableWidgetItem *n, QTableWidgetItem *c, QTableWidgetItem *d, int x, int y);
     QString imageFilePath; //= "";
     QTableWidgetItem *image;
     QTableWidgetItem *name;
     QTableWidgetItem *coord;
     QTableWidgetItem *desc;
+    int x, y;
     ~TargetListItem();
 };
 
