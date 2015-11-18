@@ -38,6 +38,8 @@ private slots:
 
     friend class MainLoader;
 
+    void on_MainWindow_destroyed();
+
 protected:
     void resizeEvent(QResizeEvent *e);
     void resizeTable();

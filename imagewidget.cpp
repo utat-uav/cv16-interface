@@ -14,10 +14,14 @@ ImageWidget::ImageWidget(QWidget *parent) :
 
     //ui->imageLabel->setScaledContents(true);
     ui->imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+
+    targetList = new TargetListWindow();
+    targetListInitialized = false;
 }
 
 ImageWidget::~ImageWidget()
 {
+    delete targetList;
     delete ui;
 }
 
@@ -55,12 +59,13 @@ void ImageWidget::setImage(QPixmap resizedImage)
 
 void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
     if ( event->button() == Qt::LeftButton ){
-        TargetListWindow *targetWindow = new TargetListWindow ;
-        targetWindow->setModal(true);
-        targetWindow->setWindowTitle(title);
-        targetWindow->setMainPic(imagePath);
-        targetWindow->loadTargets(folderPath, filePath) ;
-        targetWindow->exec();
-        delete targetWindow;
+        if (!targetListInitialized) {
+            targetList->setModal(false);
+            targetList->setWindowTitle(title);
+            targetList->setMainPic(imagePath);
+            targetList->loadTargets(folderPath, filePath) ;
+            targetListInitialized = true;
+        }
+        targetList->show();
     }
 }

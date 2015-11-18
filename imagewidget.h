@@ -29,12 +29,14 @@ public:
     void setFolderPath(QString folderPath) ;
     void setFilePath(QString filePath) ;
     ~ImageWidget();
+    TargetListWindow *targetList;
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
 
 private:
     Ui::ImageWidget *ui;
+    bool targetListInitialized;
 };
 
 #endif // IMAGEWIDGET_H

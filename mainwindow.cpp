@@ -27,6 +27,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_MainWindow_destroyed()
+{
+
+}
+
 void MainWindow::resizeEvent(QResizeEvent* e)
 {
     resizeTable();
@@ -182,7 +187,6 @@ void MainWindow::on_loadButton_clicked()
 }
 
 
-
 void MainWindow::on_addItemButton_clicked()
 {
     //addItem("");
@@ -252,3 +256,5 @@ void MainWindow::on_deleteItemButton_clicked()
         refreshTable();
     }
 }
+
+
