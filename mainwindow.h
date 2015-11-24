@@ -44,7 +44,7 @@ protected:
     void resizeEvent(QResizeEvent *e);
     void resizeTable();
     void addItem(QString filePath);
-    void appendItem(QString folderPath, QString filePath, QString imagePath, QString title);
+    void appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets);
     void refreshTable();
     void setColumnCount(int col);
     void indexToCoordinates(int index, int *r, int *c);

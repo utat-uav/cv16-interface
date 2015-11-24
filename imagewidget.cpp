@@ -9,14 +9,18 @@ ImageWidget::ImageWidget(QWidget *parent) :
     title = "";
     ui->setupUi(this);
 
+    this->seen = false;
+
     // Initialize imageLabel
     //setImage(":/images/Untitled.png");
 
     //ui->imageLabel->setScaledContents(true);
-    ui->imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+    //ui->imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 
     targetList = new TargetListWindow();
     targetListInitialized = false;
+
+    ui->colourLabel->setStyleSheet("QLabel { background-color : yellow; color : blue; }");
 }
 
 ImageWidget::~ImageWidget()
@@ -28,6 +32,11 @@ ImageWidget::~ImageWidget()
 QString ImageWidget::getTitle() const
 {
     return this->title;
+}
+
+int ImageWidget::getNumTargets() const
+{
+    return this->numTargets;
 }
 
 QString ImageWidget::getImagePath() const
@@ -56,6 +65,15 @@ void ImageWidget::setTitle(QString name)
     title = name;
 }
 
+void ImageWidget::setSeen(bool seen)
+{
+    if (seen)
+        ui->colourLabel->setStyleSheet("QLabel { background-color : green; color : blue; }");
+    else
+        ui->colourLabel->setStyleSheet("QLabel { background-color : yellow; color : blue; }");
+    this->seen = seen;
+}
+
 void ImageWidget::setFolderPath(QString folderPath){
     this->folderPath = folderPath ;
 }
@@ -67,6 +85,14 @@ void ImageWidget::setFilePath(QString filePath){
 void ImageWidget::setImagePath(QString imagePath)
 {
     this->imagePath = imagePath;
+}
+
+void ImageWidget::setNumTargets(int numTargets)
+{
+    QString s = QString::number(numTargets);
+    QString numTargetsString = s + " targets";
+    this->ui->numTargetDisplay->setText(numTargetsString);
+    this->numTargets = numTargets;
 }
 
 void ImageWidget::setImage(QString imagePath)
@@ -97,6 +123,11 @@ void ImageWidget::deleteTargetListWindow()
     delete this->targetList;
 }
 
+bool ImageWidget::getSeen() const
+{
+    return this->seen;
+}
+
 void ImageWidget::changeTargetListWindow(TargetListWindow* targetList, bool alreadyInitialized)
 {
     this->targetList = targetList;
@@ -110,7 +141,10 @@ TargetListWindow* ImageWidget::getTargetList() const
 
 void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
     if ( event->button() == Qt::LeftButton ){
+        ui->colourLabel->setStyleSheet("QLabel { background-color : green; color : blue; }"); // Mark as seen
+        this->seen = true;
         if (!targetListInitialized) {
+            targetList->setWindowFlags(Qt::Window);
             targetList->setModal(false);
             targetList->setWindowTitle(title);
             targetList->setMainPic(imagePath);

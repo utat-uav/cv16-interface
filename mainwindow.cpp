@@ -86,6 +86,8 @@ void MainWindow::refreshTable()
         temp->setFilePath(items->at(i)->getFilePath());
         temp->setFolderPath(items->at(i)->getFolderPath());
         temp->setImagePath(items->at(i)->getImagePath());
+        temp->setNumTargets(items->at(i)->getNumTargets());
+        temp->setSeen(items->at(i)->getSeen());
 
         // Preserve the old targetList window
         temp->deleteTargetListWindow();
@@ -138,14 +140,15 @@ void MainWindow::refreshTable()
     delete itemsCopy;
 }
 
-void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title)
+void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets)
 {
     // Creates item
     ImageWidget *newWidget = new ImageWidget();
     newWidget->setTitle(title);
     newWidget->setImage(imagePath);
-    newWidget->setFilePath(filePath) ;
-    newWidget->setFolderPath(folderPath) ;
+    newWidget->setFilePath(filePath);
+    newWidget->setFolderPath(folderPath);
+    newWidget->setNumTargets(numTargets);
 
     items->append(newWidget);
 }
@@ -176,8 +179,9 @@ void MainWindow::on_loadButton_clicked()
         QString filePath = dir+"/"+file ;
         QSettings resultFile(filePath,QSettings::IniFormat);
         QString imagePath = resultFile.value("Analysis Parameters/IMAGE","").toString() ; //pass directory to image widget
+        int numTargets = resultFile.value("Crop Info/Number of Crops", "").toInt(); // gets the number of targets
         if ( imagePath != "" ){
-            appendItem(dir, filePath, dir+"/"+imagePath, imagePath);
+            appendItem(dir, filePath, dir+"/"+imagePath, imagePath, numTargets);
         }
     }
 

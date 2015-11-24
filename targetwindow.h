@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "targetlistitem.h"
+#include <QProcess>
 
 namespace Ui {
 class TargetWindow;
@@ -15,6 +16,9 @@ class TargetWindow : public QDialog
 public:
     explicit TargetWindow(TargetListItem *targetListItem, QWidget *parent = 0);
     ~TargetWindow();
+
+private slots:
+    void on_testButton_clicked();
 
 private:
     Ui::TargetWindow *ui;

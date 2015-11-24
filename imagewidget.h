@@ -26,6 +26,8 @@ public:
     void setFolderPath(QString folderPath) ;
     void setFilePath(QString filePath) ;
     void setImagePath(QString imagePath);
+    void setNumTargets(int numTargets);
+    void setSeen(bool seen);
 
     // Getters
     QString getTitle() const;
@@ -34,7 +36,9 @@ public:
     QString getFolderPath() const;
     QString getFilePath() const;
     TargetListWindow* getTargetList() const;
+    int getNumTargets() const;
     bool isInitialized() const;
+    bool getSeen() const;
 
     void deleteTargetListWindow();
 
@@ -45,12 +49,14 @@ public:
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
     QString title;
+    int numTargets;
     QString filePath ;
     QString imagePath;
     QString folderPath ;
     QPixmap image;
     TargetListWindow *targetList;
     bool targetListInitialized;
+    bool seen;
 
 private:
     Ui::ImageWidget *ui;

@@ -26,3 +26,15 @@ TargetWindow::~TargetWindow()
 {
     delete ui;
 }
+
+void TargetWindow::on_testButton_clicked()
+{
+    /*
+    QProcess process;
+    QString scriptFile =  QCoreApplication::applicationDirPath() + "../../scriptPath/script.py";
+
+    QString pythonCommand = "python " + scriptFile;
+
+    process.start (pythonCommand);
+    */
+}

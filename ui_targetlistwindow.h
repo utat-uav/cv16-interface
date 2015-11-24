@@ -48,6 +48,8 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(TargetListWindow->sizePolicy().hasHeightForWidth());
         TargetListWindow->setSizePolicy(sizePolicy);
+        TargetListWindow->setSizeGripEnabled(true);
+        TargetListWindow->setModal(true);
         verticalLayout_2 = new QVBoxLayout(TargetListWindow);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         horizontalLayout_2 = new QHBoxLayout();
