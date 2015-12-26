@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "imagewidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,12 @@ MainWindow::MainWindow(QWidget *parent) :
     cellWidth = 0;
     rowCount = 0;
     items = new QList<ImageWidget*>;
+    ui->tabWidget->setTabsClosable(true);
+    ui->tabWidget->setMovable(true);
+    ui->tabWidget->removeTab(1);
+    ui->tabWidget->removeTab(0);
+    ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
+    noTabs = true ;
 
     // Sets number of columns
     setColumnCount(5);
@@ -23,7 +30,13 @@ void MainWindow::setColumnCount(int col) {
 
 MainWindow::~MainWindow()
 {
+    delete items;
     delete ui;
+}
+
+void MainWindow::on_MainWindow_destroyed()
+{
+
 }
 
 void MainWindow::resizeEvent(QResizeEvent* e)
@@ -31,30 +44,6 @@ void MainWindow::resizeEvent(QResizeEvent* e)
     resizeTable();
     QWidget::resizeEvent(e);
 }
-
-/*void MainWindow::addItem(QString filePath)
-{
-    resizeTable();
-
-    // Creates new item object and adds it to the list of items
-    appendItem(":/images/Untitled.png", "New Item");
-
-
-    // Calculate and set the number of rows based on number of items and number of columns
-    rowCount = ceil((double) items->size() / (double) colCount);
-    ui->photoListTable->setRowCount(rowCount);
-
-    // Calculate row index
-    int r = rowCount - 1;
-
-    // Calculate column index
-    int c = (items->size() - r*colCount) % (colCount+1) - 1;
-
-    // Adds object to the table in the correct position
-    ui->photoListTable->setCellWidget(r, c, newImage);
-
-    refreshTable();
-}*/
 
 void MainWindow::resizeTable()
 {
@@ -97,15 +86,24 @@ void MainWindow::refreshTable()
     // Makes copy of the items
     QList<ImageWidget *> *itemsCopy = new QList<ImageWidget *>;
     for (int i = 0; i < items->size(); i++) {
-        ImageWidget *temp = new ImageWidget();
+        ImageWidget *temp = new ImageWidget(this);
         // Copy all information over
-        temp->setImage(items->at(i)->image);
-        temp->setTitle(items->at(i)->title);
-        temp->setFilePath(items->at(i)->filePath);
-        temp->setFolderPath(items->at(i)->folderPath);
-        temp->imagePath = items->at(i)->imagePath;
+        temp->setImage(items->at(i)->getImage());
+        temp->setTitle(items->at(i)->getTitle());
+        temp->setFilePath(items->at(i)->getFilePath());
+        temp->setFolderPath(items->at(i)->getFolderPath());
+        temp->setImagePath(items->at(i)->getImagePath());
+        temp->setNumTargets(items->at(i)->getNumTargets());
+        //temp->setSeen(items->at(i)->getSeen());
+
+        // Preserve the old targetList window
+        temp->deleteTargetListWindow();
+        temp->changeTargetListWindow(items->at(i)->getTargetList(), items->at(i)->isInitialized());
+        items->at(i)->changeTargetListWindow(NULL);
 
         itemsCopy->append(temp);
+
+        delete &*(items->at(i));
     }
 
     // Clears table
@@ -144,17 +142,20 @@ void MainWindow::refreshTable()
             }
         }
     }
+
+    // Take care of memory
+    delete itemsCopy;
 }
 
-void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title)
+void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets)
 {
     // Creates item
-    ImageWidget *newWidget = new ImageWidget();
+    ImageWidget *newWidget = new ImageWidget(this);
     newWidget->setTitle(title);
     newWidget->setImage(imagePath);
-    newWidget->setFilePath(filePath) ;
-    newWidget->setFolderPath(folderPath) ;
-
+    newWidget->setFilePath(filePath);
+    newWidget->setFolderPath(folderPath);
+    newWidget->setNumTargets(numTargets);
     items->append(newWidget);
 }
 
@@ -171,7 +172,6 @@ void MainWindow::on_loadButton_clicked()
 {
     // Gets the directory from a separate window
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-
     // Create filter
     QStringList nameFilter;
     nameFilter.append("*.ini");
@@ -185,8 +185,9 @@ void MainWindow::on_loadButton_clicked()
         QString filePath = dir+"/"+file ;
         QSettings resultFile(filePath,QSettings::IniFormat);
         QString imagePath = resultFile.value("Analysis Parameters/IMAGE","").toString() ; //pass directory to image widget
+        int numTargets = resultFile.value("Crop Info/Number of Crops", "").toInt(); // gets the number of targets
         if ( imagePath != "" ){
-            appendItem(dir, filePath, dir+"/"+imagePath, imagePath);
+            appendItem(dir, filePath, dir+"/"+imagePath, imagePath, numTargets);
         }
     }
 
@@ -202,6 +203,7 @@ void MainWindow::on_loadButton_clicked()
 
     refreshTable();
 }
+
 
 void MainWindow::on_addItemButton_clicked()
 {
@@ -224,14 +226,14 @@ void MainWindow::on_editButton_clicked()
         editDialog->setWindowTitle("Edit");
 
         // Sets initial information
-        editDialog->setTitle(items->at(selectedIndex)->title);
-        editDialog->setFilePath(items->at(selectedIndex)->imagePath);
+        editDialog->setTitle(items->at(selectedIndex)->getTitle());
+        editDialog->setFilePath(items->at(selectedIndex)->getImagePath());
 
         // Starts the dialog
         editDialog->exec();
 
         // If okay was pressed in the edit dialog
-        if (editDialog->accepted) {
+        if (editDialog->getAccepted()) {
             // Gets information from edit dialog
             QString title = editDialog->getTitle();
             QString filePath = editDialog->getFilePath();
@@ -240,6 +242,8 @@ void MainWindow::on_editButton_clicked()
             items->at(selectedIndex)->setTitle(title);
             items->at(selectedIndex)->setImage(filePath);
         }
+
+        delete editDialog;
     }
 }
 
@@ -268,5 +272,27 @@ void MainWindow::on_deleteItemButton_clicked()
         ui->photoListTable->selectionModel()->clearSelection();
 
         refreshTable();
+    }
+}
+
+void MainWindow::addTab(QWidget* newTab, QString title) {
+    if (noTabs)
+        ui->tabWidget->removeTab(0);
+
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(newTab, title));
+    noTabs = false ;
+
+}
+
+void MainWindow::findTab(QWidget *tab){
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->indexOf(tab));
+}
+
+void MainWindow::on_tabWidget_tabCloseRequested(int index)
+{
+    ui->tabWidget->removeTab(index);
+    if (ui->tabWidget->count()==0){
+        noTabs = true ;
+        ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
     }
 }
