@@ -99,23 +99,14 @@
        </item>
        <item>
         <widget class="QLabel" name="colourLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="minimumSize">
           <size>
-           <width>17</width>
+           <width>18</width>
            <height>0</height>
           </size>
          </property>
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
-          <string> </string>
+          <string/>
          </property>
         </widget>
        </item>

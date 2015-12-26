@@ -89,10 +89,7 @@ public:
 
         colourLabel = new QLabel(ImageWidget);
         colourLabel->setObjectName(QStringLiteral("colourLabel"));
-        sizePolicy2.setHeightForWidth(colourLabel->sizePolicy().hasHeightForWidth());
-        colourLabel->setSizePolicy(sizePolicy2);
-        colourLabel->setMinimumSize(QSize(17, 0));
-        colourLabel->setAutoFillBackground(true);
+        colourLabel->setMinimumSize(QSize(18, 0));
 
         horizontalLayout->addWidget(colourLabel);
 

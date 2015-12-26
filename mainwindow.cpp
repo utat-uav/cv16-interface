@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "imagewidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,12 @@ MainWindow::MainWindow(QWidget *parent) :
     cellWidth = 0;
     rowCount = 0;
     items = new QList<ImageWidget*>;
+    //ui->tabWidget->setTabsClosable(true);
+    //ui->tabWidget->setMovable(true);
+    ui->tabWidget->removeTab(1);
+    ui->tabWidget->removeTab(0);
+    //ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
+    noTabs = true ;
 
     // Sets number of columns
     setColumnCount(5);
@@ -79,7 +86,7 @@ void MainWindow::refreshTable()
     // Makes copy of the items
     QList<ImageWidget *> *itemsCopy = new QList<ImageWidget *>;
     for (int i = 0; i < items->size(); i++) {
-        ImageWidget *temp = new ImageWidget();
+        ImageWidget *temp = new ImageWidget(this);
         // Copy all information over
         temp->setImage(items->at(i)->getImage());
         temp->setTitle(items->at(i)->getTitle());
@@ -143,13 +150,12 @@ void MainWindow::refreshTable()
 void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets)
 {
     // Creates item
-    ImageWidget *newWidget = new ImageWidget();
+    ImageWidget *newWidget = new ImageWidget(this);
     newWidget->setTitle(title);
     newWidget->setImage(imagePath);
     newWidget->setFilePath(filePath);
     newWidget->setFolderPath(folderPath);
     newWidget->setNumTargets(numTargets);
-
     items->append(newWidget);
 }
 
@@ -269,4 +275,27 @@ void MainWindow::on_deleteItemButton_clicked()
     }
 }
 
+void MainWindow::addTab(QWidget* newTab, QString title) {
+    if (noTabs)
+        ui->tabWidget->removeTab(0);
 
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(newTab, title));
+    noTabs = false ;
+}
+
+// Returns false if not found
+bool MainWindow::findTab(QWidget *tab){
+    int index = ui->tabWidget->indexOf(tab);
+    if (index == -1) return false;
+    ui->tabWidget->setCurrentIndex(index);
+    return true;
+}
+
+void MainWindow::on_tabWidget_tabCloseRequested(int index)
+{
+    ui->tabWidget->removeTab(index);
+    if (ui->tabWidget->count()==0){
+        noTabs = true ;
+        //ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
+    }
+}

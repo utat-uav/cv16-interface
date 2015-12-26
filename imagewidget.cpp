@@ -1,7 +1,7 @@
 #include "imagewidget.h"
 #include "ui_imagewidget.h"
 
-ImageWidget::ImageWidget(QWidget *parent) :
+ImageWidget::ImageWidget(MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::ImageWidget)
 {
@@ -10,6 +10,7 @@ ImageWidget::ImageWidget(QWidget *parent) :
     ui->setupUi(this);
 
     this->seen = false;
+    mainWindow = parent ;
 
     // Initialize imageLabel
     //setImage(":/images/Untitled.png");
@@ -19,6 +20,7 @@ ImageWidget::ImageWidget(QWidget *parent) :
 
     targetList = new TargetListWindow();
     targetListInitialized = false;
+
 
     ui->colourLabel->setStyleSheet("QLabel { background-color : yellow; color : blue; }");
 }
@@ -57,6 +59,11 @@ QString ImageWidget::getFolderPath() const
 QString ImageWidget::getFilePath() const
 {
     return this->filePath;
+}
+
+bool ImageWidget::getSeen() const
+{
+    return this->seen;
 }
 
 void ImageWidget::setTitle(QString name)
@@ -123,10 +130,10 @@ void ImageWidget::deleteTargetListWindow()
     delete this->targetList;
 }
 
-bool ImageWidget::getSeen() const
+/*bool ImageWidget::getSeen() const
 {
     return this->seen;
-}
+}*/
 
 void ImageWidget::changeTargetListWindow(TargetListWindow* targetList, bool alreadyInitialized)
 {
@@ -139,10 +146,16 @@ TargetListWindow* ImageWidget::getTargetList() const
     return this->targetList;
 }
 
+/*void ImageWidget::setTabWidget(QTabWidget* tabWidget ) {
+    this->tabWidget = tabWidget ;
+}*/
+
 void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
     if ( event->button() == Qt::LeftButton ){
         ui->colourLabel->setStyleSheet("QLabel { background-color : green; color : blue; }"); // Mark as seen
         this->seen = true;
+
+        /*
         if (!targetListInitialized) {
             targetList->setWindowFlags(Qt::Window);
             targetList->setModal(false);
@@ -151,6 +164,21 @@ void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
             targetList->loadTargets(folderPath, filePath) ;
             targetListInitialized = true;
         }
-        targetList->show();
+        targetList->show();*/
+
+        if (!targetListInitialized) {
+            //TargetListWindow* newTab = new TargetListWindow ;
+            targetList->setMainPic(imagePath);
+            targetList->loadTargets(folderPath, filePath) ;
+            mainWindow->addTab(targetList, title) ;
+            targetListInitialized = true;
+        }
+        else {
+            bool found = mainWindow->findTab(targetList) ;
+            if (!found)
+            {
+                mainWindow->addTab(targetList, title);
+            }
+        }
     }
 }

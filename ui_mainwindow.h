@@ -14,11 +14,13 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCommandLinkButton>
+#include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -38,12 +40,24 @@ public:
     QTableWidget *photoListTable;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
+    QDockWidget *dockWidget_2;
+    QWidget *dockWidgetContents_2;
+    QVBoxLayout *verticalLayout_3;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QVBoxLayout *verticalLayout_5;
+    QWidget *tab_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(897, 592);
+        MainWindow->resize(1200, 800);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);
@@ -101,23 +115,57 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 897, 21));
+        menuBar->setGeometry(QRect(0, 0, 1200, 21));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+        dockWidget_2 = new QDockWidget(MainWindow);
+        dockWidget_2->setObjectName(QStringLiteral("dockWidget_2"));
+        dockWidget_2->setMinimumSize(QSize(145, 400));
+        dockWidget_2->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
+        dockWidgetContents_2 = new QWidget();
+        dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
+        verticalLayout_3 = new QVBoxLayout(dockWidgetContents_2);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        tabWidget = new QTabWidget(dockWidgetContents_2);
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tabWidget->setTabsClosable(true);
+        tabWidget->setMovable(true);
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        verticalLayout_5 = new QVBoxLayout(tab);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QStringLiteral("tab_2"));
+        tabWidget->addTab(tab_2, QString());
+
+        verticalLayout_3->addWidget(tabWidget);
+
+        dockWidget_2->setWidget(dockWidgetContents_2);
+        MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockWidget_2);
 
         retranslateUi(MainWindow);
+
+        tabWidget->setCurrentIndex(1);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "CV Interface", 0));
         loadButton->setText(QApplication::translate("MainWindow", "Load From Folder", 0));
         editButton->setText(QApplication::translate("MainWindow", "Edit", 0));
         deleteItemButton->setText(QApplication::translate("MainWindow", "Delete", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
     } // retranslateUi
 
 };

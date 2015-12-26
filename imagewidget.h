@@ -7,6 +7,8 @@
 #include <QSize>
 #include "targetlistwindow.h"
 #include <QMouseEvent>
+#include <QTabWidget>
+#include "mainwindow.h"
 
 namespace Ui {
 class ImageWidget;
@@ -17,7 +19,7 @@ class ImageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ImageWidget(QWidget *parent = 0);
+    explicit ImageWidget(MainWindow *parent);
 
     // Setters
     void setTitle(QString name);
@@ -26,6 +28,7 @@ public:
     void setFolderPath(QString folderPath) ;
     void setFilePath(QString filePath) ;
     void setImagePath(QString imagePath);
+    void setTabWidget(QTabWidget* tabWidget ) ;
     void setNumTargets(int numTargets);
     void setSeen(bool seen);
 
@@ -58,8 +61,14 @@ protected:
     bool targetListInitialized;
     bool seen;
 
+private slots:
+    void on_colorLabel_linkActivated(const QString &link);
+
+    void on_colourLabel_destroyed();
+
 private:
     Ui::ImageWidget *ui;
+    MainWindow* mainWindow ;
 };
 
 #endif // IMAGEWIDGET_H
