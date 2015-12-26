@@ -9,7 +9,7 @@ ImageWidget::ImageWidget(MainWindow *parent) :
     title = "";
     ui->setupUi(this);
 
-    //this->opened = false;
+    this->seen = false;
     mainWindow = parent ;
 
     // Initialize imageLabel
@@ -21,7 +21,8 @@ ImageWidget::ImageWidget(MainWindow *parent) :
     targetList = new TargetListWindow();
     targetListInitialized = false;
 
-    //ui->colourLabel->setStyleSheet("QLabel { background-color : yellow; color : blue; }");
+
+    ui->colourLabel->setStyleSheet("QLabel { background-color : yellow; color : blue; }");
 }
 
 ImageWidget::~ImageWidget()
@@ -60,20 +61,25 @@ QString ImageWidget::getFilePath() const
     return this->filePath;
 }
 
+bool ImageWidget::getSeen() const
+{
+    return this->seen;
+}
+
 void ImageWidget::setTitle(QString name)
 {
     ui->imageCaption->setText(name);
     title = name;
 }
 
-/*void ImageWidget::setSeen(bool seen)
+void ImageWidget::setSeen(bool seen)
 {
     if (seen)
         ui->colourLabel->setStyleSheet("QLabel { background-color : green; color : blue; }");
     else
         ui->colourLabel->setStyleSheet("QLabel { background-color : yellow; color : blue; }");
     this->seen = seen;
-}*/
+}
 
 void ImageWidget::setFolderPath(QString folderPath){
     this->folderPath = folderPath ;
@@ -146,8 +152,10 @@ TargetListWindow* ImageWidget::getTargetList() const
 
 void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
     if ( event->button() == Qt::LeftButton ){
-        /*ui->colourLabel->setStyleSheet("QLabel { background-color : green; color : blue; }"); // Mark as seen
+        ui->colourLabel->setStyleSheet("QLabel { background-color : green; color : blue; }"); // Mark as seen
         this->seen = true;
+
+        /*
         if (!targetListInitialized) {
             targetList->setWindowFlags(Qt::Window);
             targetList->setModal(false);
@@ -157,6 +165,7 @@ void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
             targetListInitialized = true;
         }
         targetList->show();*/
+
         if (!targetListInitialized) {
             //TargetListWindow* newTab = new TargetListWindow ;
             targetList->setMainPic(imagePath);
@@ -165,7 +174,11 @@ void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
             targetListInitialized = true;
         }
         else {
-            mainWindow->findTab(targetList) ;
+            bool found = mainWindow->findTab(targetList) ;
+            if (!found)
+            {
+                mainWindow->addTab(targetList, title);
+            }
         }
     }
 }

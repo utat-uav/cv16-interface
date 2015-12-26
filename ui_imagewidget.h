@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'imagewidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.4.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -30,6 +30,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *imageCaption;
     QLabel *numTargetDisplay;
+    QLabel *colourLabel;
 
     void setupUi(QWidget *ImageWidget)
     {
@@ -86,6 +87,12 @@ public:
 
         horizontalLayout->addWidget(numTargetDisplay);
 
+        colourLabel = new QLabel(ImageWidget);
+        colourLabel->setObjectName(QStringLiteral("colourLabel"));
+        colourLabel->setMinimumSize(QSize(18, 0));
+
+        horizontalLayout->addWidget(colourLabel);
+
 
         verticalLayout->addLayout(horizontalLayout);
 
@@ -104,6 +111,7 @@ public:
         imageLabel->setText(QString());
         imageCaption->setText(QApplication::translate("ImageWidget", "Image Name", 0));
         numTargetDisplay->setText(QApplication::translate("ImageWidget", "0 Targets", 0));
+        colourLabel->setText(QString());
     } // retranslateUi
 
 };

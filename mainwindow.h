@@ -28,7 +28,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void addTab(QWidget* newTab, QString title) ;
-    void findTab (QWidget* tab) ;
+    bool findTab (QWidget* tab) ;
     ~MainWindow();
 
 private slots:

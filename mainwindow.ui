@@ -112,6 +112,9 @@
      <height>400</height>
     </size>
    </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
@@ -120,7 +123,13 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
+       </property>
+       <property name="tabsClosable">
+        <bool>true</bool>
+       </property>
+       <property name="movable">
+        <bool>true</bool>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">

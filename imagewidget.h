@@ -30,7 +30,7 @@ public:
     void setImagePath(QString imagePath);
     void setTabWidget(QTabWidget* tabWidget ) ;
     void setNumTargets(int numTargets);
-    //void setSeen(bool seen);
+    void setSeen(bool seen);
 
     // Getters
     QString getTitle() const;
@@ -59,7 +59,12 @@ protected:
     QPixmap image;
     TargetListWindow *targetList;
     bool targetListInitialized;
-    //bool opened;
+    bool seen;
+
+private slots:
+    void on_colorLabel_linkActivated(const QString &link);
+
+    void on_colourLabel_destroyed();
 
 private:
     Ui::ImageWidget *ui;

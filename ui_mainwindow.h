@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.4.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -123,6 +123,7 @@ public:
         dockWidget_2 = new QDockWidget(MainWindow);
         dockWidget_2->setObjectName(QStringLiteral("dockWidget_2"));
         dockWidget_2->setMinimumSize(QSize(145, 400));
+        dockWidget_2->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
         verticalLayout_3 = new QVBoxLayout(dockWidgetContents_2);
@@ -131,6 +132,8 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         tabWidget = new QTabWidget(dockWidgetContents_2);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tabWidget->setTabsClosable(true);
+        tabWidget->setMovable(true);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         verticalLayout_5 = new QVBoxLayout(tab);
@@ -149,7 +152,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

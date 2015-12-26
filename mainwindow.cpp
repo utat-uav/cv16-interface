@@ -12,11 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
     cellWidth = 0;
     rowCount = 0;
     items = new QList<ImageWidget*>;
-    ui->tabWidget->setTabsClosable(true);
-    ui->tabWidget->setMovable(true);
+    //ui->tabWidget->setTabsClosable(true);
+    //ui->tabWidget->setMovable(true);
     ui->tabWidget->removeTab(1);
     ui->tabWidget->removeTab(0);
-    ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
+    //ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
     noTabs = true ;
 
     // Sets number of columns
@@ -94,7 +94,7 @@ void MainWindow::refreshTable()
         temp->setFolderPath(items->at(i)->getFolderPath());
         temp->setImagePath(items->at(i)->getImagePath());
         temp->setNumTargets(items->at(i)->getNumTargets());
-        //temp->setSeen(items->at(i)->getSeen());
+        temp->setSeen(items->at(i)->getSeen());
 
         // Preserve the old targetList window
         temp->deleteTargetListWindow();
@@ -281,11 +281,14 @@ void MainWindow::addTab(QWidget* newTab, QString title) {
 
     ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(newTab, title));
     noTabs = false ;
-
 }
 
-void MainWindow::findTab(QWidget *tab){
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->indexOf(tab));
+// Returns false if not found
+bool MainWindow::findTab(QWidget *tab){
+    int index = ui->tabWidget->indexOf(tab);
+    if (index == -1) return false;
+    ui->tabWidget->setCurrentIndex(index);
+    return true;
 }
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
@@ -293,6 +296,6 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     ui->tabWidget->removeTab(index);
     if (ui->tabWidget->count()==0){
         noTabs = true ;
-        ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
+        //ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
     }
 }
