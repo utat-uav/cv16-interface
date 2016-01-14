@@ -70,6 +70,8 @@ void ImageWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     if (_c == QMetaObject::InvokeMetaMethod) {
         ImageWidget *_t = static_cast<ImageWidget *>(_o);
         switch (_id) {
+        //case 0: _t->on_colorLabel_linkActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        //case 1: _t->on_colourLabel_destroyed(); break;
         default: ;
         }
     }

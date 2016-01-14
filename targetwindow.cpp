@@ -1,7 +1,7 @@
 #include "targetwindow.h"
 #include "ui_targetwindow.h"
 
-TargetWindow::TargetWindow(TargetListItem *targetListItem, QWidget *parent) :
+TargetWindow::TargetWindow(QProcess *classifier, TargetListItem *targetListItem, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TargetWindow)
 {
@@ -16,10 +16,13 @@ TargetWindow::TargetWindow(TargetListItem *targetListItem, QWidget *parent) :
     ui->targetPic->setPixmap(pic);
     delete pix;
 
+    this->classifier = classifier;
+
     // Set all other information
     ui->nameLabel->setText(targetListItem->name->text());
     ui->coordinatesLabel->setText(targetListItem->coord->text());
-    ui->description->setText(targetListItem->desc->text());
+    ui->description->moveCursor(QTextCursor::End);
+    ui->description->insertPlainText(targetListItem->desc->text());
 }
 
 TargetWindow::~TargetWindow()
@@ -29,12 +32,5 @@ TargetWindow::~TargetWindow()
 
 void TargetWindow::on_testButton_clicked()
 {
-    /*
-    QProcess process;
-    QString scriptFile =  QCoreApplication::applicationDirPath() + "../../scriptPath/script.py";
-
-    QString pythonCommand = "python " + scriptFile;
-
-    process.start (pythonCommand);
-    */
+    classifier->write("help\n");
 }

@@ -1,7 +1,7 @@
 #include "targetlistwindow.h"
 #include "ui_targetlistwindow.h"
 
-TargetListWindow::TargetListWindow(QWidget *parent) :
+TargetListWindow::TargetListWindow(QProcess *classifier, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TargetListWindow)
 {
@@ -17,6 +17,8 @@ TargetListWindow::TargetListWindow(QWidget *parent) :
     mainPicHeight = 0;
 
     resultFile = NULL;
+
+    this->classifier = classifier;
 
     // Set row size
     ui->targetListTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
@@ -219,7 +221,7 @@ void Loader::run()
 void TargetListWindow::on_targetListTable_doubleClicked(const QModelIndex &index)
 {
     int rowNum = index.row();
-    TargetWindow *targetWindow = new TargetWindow(targetList->getRows()->at(rowNum), this);
+    TargetWindow *targetWindow = new TargetWindow(classifier, targetList->getRows()->at(rowNum), this);
     targetWindow->setModal(true);
     targetWindow->setWindowTitle("Target");
 

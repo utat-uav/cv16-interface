@@ -47,3 +47,5 @@ DISTFILES += \
 
 RESOURCES += \
     resouces.qrc
+
+win32:RC_ICONS += Icon.ico

@@ -17,11 +17,13 @@
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -42,11 +44,16 @@ public:
     QStatusBar *statusBar;
     QDockWidget *dockWidget_2;
     QWidget *dockWidgetContents_2;
-    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_2;
     QTabWidget *tabWidget;
     QWidget *tab;
     QVBoxLayout *verticalLayout_5;
     QWidget *tab_2;
+    QDockWidget *dockWidget;
+    QWidget *dockWidgetContents;
+    QVBoxLayout *verticalLayout_3;
+    QTextBrowser *consoleOutput;
+    QLineEdit *consoleCommander;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -73,16 +80,28 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         loadButton = new QCommandLinkButton(centralWidget);
         loadButton->setObjectName(QStringLiteral("loadButton"));
+        loadButton->setAutoFillBackground(false);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/round75.png"), QSize(), QIcon::Normal, QIcon::Off);
+        loadButton->setIcon(icon);
 
         horizontalLayout->addWidget(loadButton);
 
         editButton = new QCommandLinkButton(centralWidget);
         editButton->setObjectName(QStringLiteral("editButton"));
+        editButton->setAutoFillBackground(false);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/clasic.png"), QSize(), QIcon::Normal, QIcon::Off);
+        editButton->setIcon(icon1);
 
         horizontalLayout->addWidget(editButton);
 
         deleteItemButton = new QCommandLinkButton(centralWidget);
         deleteItemButton->setObjectName(QStringLiteral("deleteItemButton"));
+        deleteItemButton->setAutoFillBackground(false);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/delete85.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deleteItemButton->setIcon(icon2);
 
         horizontalLayout->addWidget(deleteItemButton);
 
@@ -122,14 +141,14 @@ public:
         MainWindow->setStatusBar(statusBar);
         dockWidget_2 = new QDockWidget(MainWindow);
         dockWidget_2->setObjectName(QStringLiteral("dockWidget_2"));
-        dockWidget_2->setMinimumSize(QSize(145, 400));
+        dockWidget_2->setMinimumSize(QSize(397, 400));
         dockWidget_2->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
-        verticalLayout_3 = new QVBoxLayout(dockWidgetContents_2);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        horizontalLayout_2 = new QHBoxLayout(dockWidgetContents_2);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         tabWidget = new QTabWidget(dockWidgetContents_2);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setTabsClosable(true);
@@ -145,10 +164,34 @@ public:
         tab_2->setObjectName(QStringLiteral("tab_2"));
         tabWidget->addTab(tab_2, QString());
 
-        verticalLayout_3->addWidget(tabWidget);
+        horizontalLayout_2->addWidget(tabWidget);
 
         dockWidget_2->setWidget(dockWidgetContents_2);
         MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockWidget_2);
+        dockWidget = new QDockWidget(MainWindow);
+        dockWidget->setObjectName(QStringLiteral("dockWidget"));
+        dockWidget->setMinimumSize(QSize(300, 137));
+        dockWidget->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
+        dockWidgetContents = new QWidget();
+        dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
+        verticalLayout_3 = new QVBoxLayout(dockWidgetContents);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        consoleOutput = new QTextBrowser(dockWidgetContents);
+        consoleOutput->setObjectName(QStringLiteral("consoleOutput"));
+        consoleOutput->setMinimumSize(QSize(0, 0));
+        consoleOutput->setMaximumSize(QSize(230535, 16777215));
+
+        verticalLayout_3->addWidget(consoleOutput);
+
+        consoleCommander = new QLineEdit(dockWidgetContents);
+        consoleCommander->setObjectName(QStringLiteral("consoleCommander"));
+
+        verticalLayout_3->addWidget(consoleCommander);
+
+        dockWidget->setWidget(dockWidgetContents);
+        MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockWidget);
 
         retranslateUi(MainWindow);
 
@@ -164,8 +207,10 @@ public:
         loadButton->setText(QApplication::translate("MainWindow", "Load From Folder", 0));
         editButton->setText(QApplication::translate("MainWindow", "Edit", 0));
         deleteItemButton->setText(QApplication::translate("MainWindow", "Delete", 0));
+        dockWidget_2->setWindowTitle(QApplication::translate("MainWindow", "Target Lists", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
+        dockWidget->setWindowTitle(QApplication::translate("MainWindow", "Classifier Console", 0));
     } // retranslateUi
 
 };

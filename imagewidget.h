@@ -19,7 +19,7 @@ class ImageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ImageWidget(MainWindow *parent);
+    explicit ImageWidget(QProcess *classifier, MainWindow *parent);
 
     // Setters
     void setTitle(QString name);
@@ -62,9 +62,7 @@ protected:
     bool seen;
 
 private slots:
-    void on_colorLabel_linkActivated(const QString &link);
 
-    void on_colourLabel_destroyed();
 
 private:
     Ui::ImageWidget *ui;

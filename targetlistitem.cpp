@@ -1,6 +1,6 @@
 #include "targetlistitem.h"
 
-TargetListItem::TargetListItem(QTableWidgetItem *i, QTableWidgetItem *n, QTableWidgetItem *c, QTableWidgetItem *d, int x, int y)
+TargetListItem::TargetListItem(QString imageFilePath, QTableWidgetItem *i, QTableWidgetItem *n, QTableWidgetItem *c, QTableWidgetItem *d, int x, int y)
 {
     image = i;
     name = n;
@@ -9,7 +9,9 @@ TargetListItem::TargetListItem(QTableWidgetItem *i, QTableWidgetItem *n, QTableW
     this->x = x;
     this->y = y;
 
-    imageFilePath = "";
+    this->imageFilePath = imageFilePath;
+
+    desc->setText("File Path: " + this->imageFilePath);
 }
 
 TargetListItem::~TargetListItem()

@@ -14,13 +14,14 @@ class TargetWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit TargetWindow(TargetListItem *targetListItem, QWidget *parent = 0);
+    explicit TargetWindow(QProcess *classifier, TargetListItem *targetListItem, QWidget *parent = 0);
     ~TargetWindow();
 
 private slots:
     void on_testButton_clicked();
 
 private:
+    QProcess *classifier;
     Ui::TargetWindow *ui;
     TargetListItem *targetListItem;
 };

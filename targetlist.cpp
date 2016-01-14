@@ -85,8 +85,7 @@ void TargetList::addNewRow(QString fileName, QString name, QString coordinates, 
     descItem->setText(description);
 
     // Places item in a TargetListItem and adds it to the target list
-    TargetListItem *newItem = new TargetListItem(image, nameItem, coordItem, descItem, x, y);
-    newItem->imageFilePath = fileName;
+    TargetListItem *newItem = new TargetListItem(fileName, image, nameItem, coordItem, descItem, x, y);
     rows->append(newItem);
 
     if (refresh)

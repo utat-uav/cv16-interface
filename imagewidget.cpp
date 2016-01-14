@@ -1,7 +1,7 @@
 #include "imagewidget.h"
 #include "ui_imagewidget.h"
 
-ImageWidget::ImageWidget(MainWindow *parent) :
+ImageWidget::ImageWidget(QProcess *classifier, MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::ImageWidget)
 {
@@ -18,7 +18,7 @@ ImageWidget::ImageWidget(MainWindow *parent) :
     //ui->imageLabel->setScaledContents(true);
     //ui->imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 
-    targetList = new TargetListWindow();
+    targetList = new TargetListWindow(classifier);
     targetListInitialized = false;
 
 

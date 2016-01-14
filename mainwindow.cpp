@@ -12,8 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     cellWidth = 0;
     rowCount = 0;
     items = new QList<ImageWidget*>;
-    //ui->tabWidget->setTabsClosable(true);
-    //ui->tabWidget->setMovable(true);
     ui->tabWidget->removeTab(1);
     ui->tabWidget->removeTab(0);
     //ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
@@ -21,6 +19,81 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Sets number of columns
     setColumnCount(5);
+
+    // Get application path
+    QString exePath = QDir::currentPath();
+    ui->consoleOutput->append("Current path: " + exePath + "\n");
+
+    // Get potential files for classifier exe
+    QList<QString> files;
+    listFiles(exePath, "", files);
+
+    QString classifierPath;
+    QString cnnPath;
+
+    // Find classifier exe
+    for (int i = 0; i < files.size(); ++i)
+    {
+        if (files[i].contains("Classifier.exe"))
+        {
+            classifierPath = files[i];
+            cnnPath = classifierPath;
+            cnnPath.replace("Classifier.exe", "TrainedCNN");
+        }
+    }
+
+    // Get args
+    QStringList args;
+    cnnPath = cnnPath.replace('/', '\\');
+    args << "-cnn" << cnnPath;
+
+    // Start classifier
+    classifier = new QProcess(this);
+    classifier->start(classifierPath, args, QProcess::Unbuffered | QProcess::ReadWrite);
+    classifier->waitForStarted();
+
+    // Connect slots for piping the standard output
+    connect(classifier, SIGNAL(readyReadStandardOutput()), this, SLOT(ReadOut()));
+    connect(classifier, SIGNAL(readyReadStandardError()), this, SLOT(ReadErr()));
+
+    // Set up completer
+    completer = new QCompleter(prevCommands, this);
+    ui->consoleCommander->setCompleter(completer);
+}
+
+void MainWindow::ReadOut()
+{
+    QProcess *p = dynamic_cast<QProcess *>(sender());
+    if (p)
+    {
+      ui->consoleOutput->moveCursor(QTextCursor::End);
+      ui->consoleOutput->insertPlainText(p->readAllStandardOutput());
+      ui->consoleOutput->moveCursor(QTextCursor::End);
+    }
+}
+
+void MainWindow::ReadErr()
+{
+    QProcess *p = dynamic_cast<QProcess *>(sender());
+    if (p)
+    {
+      ui->consoleOutput->moveCursor(QTextCursor::End);
+      ui->consoleOutput->insertPlainText("ERROR: " + p->readAllStandardError());
+      ui->consoleOutput->moveCursor(QTextCursor::End);
+    }
+}
+
+void MainWindow::listFiles(QDir directory, QString indent, QList<QString> &files)
+{
+    indent += "\t";
+    QDir dir(directory);
+    QFileInfoList list = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
+    foreach(QFileInfo finfo, list) {
+        files.append(finfo.filePath());
+        if(finfo.isDir()) {
+            listFiles(QDir(finfo.absoluteFilePath()), indent, files);
+        }
+    }
 }
 
 void MainWindow::setColumnCount(int col) {
@@ -30,8 +103,12 @@ void MainWindow::setColumnCount(int col) {
 
 MainWindow::~MainWindow()
 {
+    classifier->close();
+    classifier->terminate();
     delete items;
     delete ui;
+    delete classifier;
+    delete completer;
 }
 
 void MainWindow::on_MainWindow_destroyed()
@@ -86,7 +163,7 @@ void MainWindow::refreshTable()
     // Makes copy of the items
     QList<ImageWidget *> *itemsCopy = new QList<ImageWidget *>;
     for (int i = 0; i < items->size(); i++) {
-        ImageWidget *temp = new ImageWidget(this);
+        ImageWidget *temp = new ImageWidget(classifier, this);
         // Copy all information over
         temp->setImage(items->at(i)->getImage());
         temp->setTitle(items->at(i)->getTitle());
@@ -150,7 +227,7 @@ void MainWindow::refreshTable()
 void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets)
 {
     // Creates item
-    ImageWidget *newWidget = new ImageWidget(this);
+    ImageWidget *newWidget = new ImageWidget(classifier, this);
     newWidget->setTitle(title);
     newWidget->setImage(imagePath);
     newWidget->setFilePath(filePath);
@@ -298,4 +375,27 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
         noTabs = true ;
         //ui->tabWidget->addTab(new TargetListWindow, "Target List") ;
     }
+}
+
+void MainWindow::on_consoleCommander_returnPressed()
+{
+    // Get command
+    QString command = ui->consoleCommander->text();
+    QStringList::iterator it = std::find(prevCommands.begin(), prevCommands.end(), command);
+    if (it == prevCommands.end())
+        prevCommands << command;
+    command += "\n";
+
+    // Update autocompleter
+    QStringListModel *model = (QStringListModel*)(completer->model());
+    if(model == NULL)
+        model = new QStringListModel();
+    model->setStringList(prevCommands);
+    completer->setModel(model);
+
+    // Send command
+    classifier->write(command.toStdString().c_str());
+
+    // Clear commander
+    ui->consoleCommander->setText("");
 }

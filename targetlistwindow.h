@@ -36,7 +36,7 @@ class TargetListWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit TargetListWindow(QWidget *parent = 0);
+    explicit TargetListWindow(QProcess *classifier, QWidget *parent = 0);
     Ui::TargetListWindow *ui ;
     ~TargetListWindow();
     void setMainPic (QString imagePath) ;
@@ -68,6 +68,7 @@ private:
     QSettings *resultFile;
     TargetList *targetList;
     int colCount;
+    QProcess *classifier;
 };
 
 #endif // TARGETLISTWINDOW_H

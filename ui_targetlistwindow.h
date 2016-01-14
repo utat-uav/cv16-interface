@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'targetlistwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.4.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -61,7 +61,7 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(mainpic->sizePolicy().hasHeightForWidth());
         mainpic->setSizePolicy(sizePolicy1);
-        mainpic->setMinimumSize(QSize(450, 0));
+        mainpic->setMinimumSize(QSize(400, 0));
         mainpic->setAutoFillBackground(true);
         mainpic->setFrameShape(QFrame::NoFrame);
         mainpic->setFrameShadow(QFrame::Sunken);

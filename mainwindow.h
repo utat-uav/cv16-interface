@@ -14,7 +14,11 @@
 #include <QtCore/QCoreApplication>
 #include <QSettings>
 #include <QTableWidget>
+#include <QProcess>
+#include <QCompleter>
+#include <QMessageBox>
 #include "targetlistwindow.h"
+#include <QStringListModel>
 
 namespace Ui {
 class MainWindow;
@@ -40,11 +44,16 @@ private slots:
 
     void on_deleteItemButton_clicked();
 
+    void ReadOut();
+    void ReadErr();
+
     friend class MainLoader;
 
     void on_MainWindow_destroyed();
 
     void on_tabWidget_tabCloseRequested(int index);
+
+    void on_consoleCommander_returnPressed();
 
 protected:
     void resizeEvent(QResizeEvent *e);
@@ -53,12 +62,16 @@ protected:
     void appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets);
     void refreshTable();
     void setColumnCount(int col);
+    void listFiles(QDir directory, QString indent, QList<QString> &files);
     void indexToCoordinates(int index, int *r, int *c);
 
 
 private:
     Ui::MainWindow *ui;
     QList<ImageWidget *> *items;
+    QProcess *classifier;
+    QCompleter *completer;
+    QStringList prevCommands;
     int tableWidth;
     int cellHeight;
     int cellWidth;
