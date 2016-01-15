@@ -34,11 +34,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // Find classifier exe
     for (int i = 0; i < files.size(); ++i)
     {
-        if (files[i].contains("Classifier.exe"))
+        if (files[i].contains("SoftmaxRegression.exe"))
         {
             classifierPath = files[i];
             cnnPath = classifierPath;
-            cnnPath.replace("Classifier.exe", "TrainedCNN");
+            cnnPath.replace("SoftmaxRegression.exe", "TrainedCNN");
         }
     }
 

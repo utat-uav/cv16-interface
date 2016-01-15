@@ -1,1 +1,0 @@
-Run SoftmaxRegression from cmd
