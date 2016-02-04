@@ -8,6 +8,7 @@ INPUT(
 ./debug/targetlistitem.o
 ./debug/targetmaker.o
 ./debug/targetwindow.o
+./debug/lifesupport.o
 ./debug/qrc_resouces.o
 ./debug/moc_mainwindow.o
 ./debug/moc_imagewidget.o

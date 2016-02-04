@@ -51,7 +51,8 @@ SOURCES       = main.cpp \
 		targetlist.cpp \
 		targetlistitem.cpp \
 		targetmaker.cpp \
-		targetwindow.cpp debug/qrc_resouces.cpp \
+		targetwindow.cpp \
+		lifesupport.cpp debug/qrc_resouces.cpp \
 		debug/moc_mainwindow.cpp \
 		debug/moc_imagewidget.cpp \
 		debug/moc_itemmaker.cpp \
@@ -67,6 +68,7 @@ OBJECTS       = debug/main.o \
 		debug/targetlistitem.o \
 		debug/targetmaker.o \
 		debug/targetwindow.o \
+		debug/lifesupport.o \
 		debug/qrc_resouces.o \
 		debug/moc_mainwindow.o \
 		debug/moc_imagewidget.o \
@@ -86,7 +88,8 @@ DIST          = clasic.png \
 		targetlist.h \
 		targetlistitem.h \
 		targetmaker.h \
-		targetwindow.h main.cpp \
+		targetwindow.h \
+		lifesupport.h main.cpp \
 		mainwindow.cpp \
 		imagewidget.cpp \
 		itemmaker.cpp \
@@ -94,7 +97,8 @@ DIST          = clasic.png \
 		targetlist.cpp \
 		targetlistitem.cpp \
 		targetmaker.cpp \
-		targetwindow.cpp
+		targetwindow.cpp \
+		lifesupport.cpp
 QMAKE_TARGET  = CVInterface
 DESTDIR        = debug/ #avoid trailing-slash linebreak
 TARGET         = CVInterface.exe
@@ -136,7 +140,7 @@ dist:
 	$(ZIP) CVInterface.zip $(SOURCES) $(DIST) CVInterface.pro ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/spec_pre.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/qdevice.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/device_config.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/common/shell-unix.conf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/qconfig.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_axbase.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_axbase_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_axcontainer.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_axcontainer_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_axserver.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_axserver_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_bluetooth.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_bluetooth_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_bootstrap_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_clucene_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_concurrent.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_concurrent_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_core.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_core_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_declarative.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_declarative_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_designer.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_designer_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_designercomponents_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_enginio.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_enginio_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_gui.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_gui_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_help.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_help_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_location.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_location_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_multimedia.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_multimedia_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_multimediawidgets.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_network.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_network_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_nfc.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_nfc_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_opengl.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_opengl_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_openglextensions.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_openglextensions_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_platformsupport_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_positioning.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_positioning_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_printsupport.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_printsupport_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_qml.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_qml_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_qmldevtools_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_qmltest.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_qmltest_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_quick.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_quick_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_quickparticles_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_quickwidgets.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_quickwidgets_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_script.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_script_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_scripttools.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_scripttools_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_sensors.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_sensors_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_serialport.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_serialport_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_sql.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_sql_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_svg.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_svg_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_testlib.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_testlib_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_uitools.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_uitools_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webchannel.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webchannel_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webkit.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webkit_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webkitwidgets.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webkitwidgets_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_websockets.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_websockets_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webview.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_webview_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_widgets.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_widgets_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_winextras.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_winextras_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_xml.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_xml_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_xmlpatterns.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/modules/qt_lib_xmlpatterns_private.pri ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/qt_functions.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/qt_config.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/win32/qt_config.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/win32-g++/qmake.conf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/spec_post.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/exclusive_builds.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/default_pre.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/win32/default_pre.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/resolve_config.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/exclusive_builds_post.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/default_post.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/build_pass.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/win32/rtti.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/precompile_header.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/warn_on.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/qt.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/resources.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/moc.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/win32/opengl.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/uic.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/win32/windows.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/testcase_targets.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/exceptions.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/yacc.prf ../../../Programs/Qt/5.4/mingw491_32/mkspecs/features/lex.prf CVInterface.pro resouces.qrc D:/Programs/Qt/5.4/mingw491_32/lib/qtmaind.prl D:/Programs/Qt/5.4/mingw491_32/lib/Qt5Cored.prl D:/Programs/Qt/5.4/mingw491_32/lib/Qt5Widgetsd.prl D:/Programs/Qt/5.4/mingw491_32/lib/Qt5Guid.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug/main.o debug/mainwindow.o debug/imagewidget.o debug/itemmaker.o debug/targetlistwindow.o debug/targetlist.o debug/targetlistitem.o debug/targetmaker.o debug/targetwindow.o debug/qrc_resouces.o debug/moc_mainwindow.o debug/moc_imagewidget.o debug/moc_itemmaker.o debug/moc_targetlistwindow.o debug/moc_targetmaker.o debug/moc_targetwindow.o
+	-$(DEL_FILE) debug/main.o debug/mainwindow.o debug/imagewidget.o debug/itemmaker.o debug/targetlistwindow.o debug/targetlist.o debug/targetlistitem.o debug/targetmaker.o debug/targetwindow.o debug/lifesupport.o debug/qrc_resouces.o debug/moc_mainwindow.o debug/moc_imagewidget.o debug/moc_itemmaker.o debug/moc_targetlistwindow.o debug/moc_targetmaker.o debug/moc_targetwindow.o
 	-$(DEL_FILE) debug/CVInterface_resource_res.o
 
 distclean: clean 
@@ -318,23 +322,19 @@ debug/moc_mainwindow.cpp: ../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qcompleter.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMessageBox \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmessagebox.h \
-		targetlistwindow.h \
-		targetmaker.h \
-		targetwindow.h \
-		targetlistitem.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTableWidgetItem \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QLabel \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qlabel.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
-		targetlist.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPixmap \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QStringListModel \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qstringlistmodel.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
 		mainwindow.h
 	'D:\Programs\Qt\5.4\mingw491_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -ID:/Programs/Qt/5.4/mingw491_32/mkspecs/win32-g++ -ID:/Workspace/UAV/cv16-interface -ID:/Programs/Qt/5.4/mingw491_32/include -ID:/Programs/Qt/5.4/mingw491_32/include/QtWidgets -ID:/Programs/Qt/5.4/mingw491_32/include/QtGui -ID:/Programs/Qt/5.4/mingw491_32/include/QtCore mainwindow.h -o debug/moc_mainwindow.cpp
 
@@ -472,13 +472,22 @@ debug/moc_imagewidget.cpp: ../../../Programs/Qt/5.4/mingw491_32/include/QtWidget
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qrubberband.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QProcess \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocess.h \
-		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QSettings \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsettings.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
+		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QThread \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qthread.h \
@@ -753,13 +762,22 @@ debug/moc_targetlistwindow.cpp: ../../../Programs/Qt/5.4/mingw491_32/include/QtW
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QProcess \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocess.h \
-		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QSettings \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsettings.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
+		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPixmap \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QThread \
@@ -1002,6 +1020,19 @@ debug/moc_targetwindow.cpp: ../../../Programs/Qt/5.4/mingw491_32/include/QtWidge
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QProcess \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocess.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QSettings \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsettings.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
 		targetwindow.h
 	'D:\Programs\Qt\5.4\mingw491_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -ID:/Programs/Qt/5.4/mingw491_32/mkspecs/win32-g++ -ID:/Workspace/UAV/cv16-interface -ID:/Programs/Qt/5.4/mingw491_32/include -ID:/Programs/Qt/5.4/mingw491_32/include/QtWidgets -ID:/Programs/Qt/5.4/mingw491_32/include/QtGui -ID:/Programs/Qt/5.4/mingw491_32/include/QtCore targetwindow.h -o debug/moc_targetwindow.cpp
 
@@ -1191,23 +1222,19 @@ debug/main.o: main.cpp mainwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qcompleter.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMessageBox \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmessagebox.h \
-		targetlistwindow.h \
-		targetmaker.h \
-		targetwindow.h \
-		targetlistitem.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTableWidgetItem \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QLabel \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qlabel.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
-		targetlist.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPixmap \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QStringListModel \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qstringlistmodel.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QApplication \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qapplication.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qdesktopwidget.h \
@@ -1366,23 +1393,19 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qcompleter.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMessageBox \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmessagebox.h \
-		targetlistwindow.h \
-		targetmaker.h \
-		targetwindow.h \
-		targetlistitem.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTableWidgetItem \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QLabel \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qlabel.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
-		targetlist.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPixmap \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QStringListModel \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qstringlistmodel.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
 		ui_mainwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QVariant \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QAction \
@@ -1410,21 +1433,28 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qheaderview.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QLineEdit \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qlineedit.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMenuBar \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmenubar.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmenu.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QStatusBar \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qstatusbar.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTabWidget \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QVBoxLayout \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
 		imagewidget.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QLabel \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qlabel.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPixmap \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QSize \
+		targetlistwindow.h \
+		targetmaker.h \
+		targetwindow.h \
+		targetlistitem.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTableWidgetItem \
+		targetlist.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QMouseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/mainwindow.o mainwindow.cpp
 
@@ -1563,13 +1593,22 @@ debug/imagewidget.o: imagewidget.cpp imagewidget.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qrubberband.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QProcess \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocess.h \
-		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QSettings \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsettings.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
+		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QThread \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qthread.h \
@@ -1916,13 +1955,22 @@ debug/targetlistwindow.o: targetlistwindow.cpp targetlistwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QProcess \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocess.h \
-		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QSettings \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsettings.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
+		targetlist.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPainter \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainter.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QPixmap \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/QColor \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QThread \
@@ -2509,6 +2557,19 @@ debug/targetwindow.o: targetwindow.cpp targetwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QProcess \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocess.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QSettings \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsettings.h \
+		lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString \
 		ui_targetwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QVariant \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QAction \
@@ -2536,16 +2597,126 @@ debug/targetwindow.o: targetwindow.cpp targetwindow.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qgridlayout.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QHeaderView \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qheaderview.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QVBoxLayout
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/targetwindow.o targetwindow.cpp
+
+debug/lifesupport.o: lifesupport.cpp lifesupport.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qobject.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qobjectdefs.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qnamespace.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qglobal.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qconfig.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qfeatures.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsystemdetection.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocessordetection.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qcompilerdetection.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qtypeinfo.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qtypetraits.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsysinfo.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qlogging.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qflags.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qbasicatomic.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_bootstrap.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qgenericatomic.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_msvc.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_armv7.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_armv6.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_armv5.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_ia64.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_mips.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_x86.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_cxx11.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_gcc.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qatomic_unix.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qglobalstatic.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qmutex.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qnumeric.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qobjectdefs_impl.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qstring.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qchar.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qbytearray.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qrefcount.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qarraydata.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qstringbuilder.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qlist.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qalgorithms.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qiterator.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qbytearraylist.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qcoreevent.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qscopedpointer.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qmetatype.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qvarlengtharray.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qcontainerfwd.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qisenum.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qobject_impl.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QProcess \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qprocess.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qiodevice.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qstringlist.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qdatastream.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qpair.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qregexp.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qstringmatcher.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qshareddata.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qhash.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QTextBrowser \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextbrowser.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtextedit.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qabstractscrollarea.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qframe.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qwidget.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qwindowdefs.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qwindowdefs_win.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qmargins.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpaintdevice.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qrect.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsize.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qpoint.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpalette.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qcolor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qrgb.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qbrush.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qvector.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qmatrix.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpolygon.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qregion.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qline.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtransform.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpainterpath.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qimage.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpixelformat.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpixmap.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsharedpointer.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qsharedpointer_impl.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qfont.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qfontmetrics.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qfontinfo.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/qsizepolicy.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qcursor.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qkeysequence.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qevent.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qvariant.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qmap.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qdebug.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qtextstream.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qlocale.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qset.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qcontiguouscache.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qurl.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qurlquery.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qfile.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/qfiledevice.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qvector2d.h \
+		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtouchdevice.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextdocument.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextoption.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextcursor.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qtextformat.h \
 		../../../Programs/Qt/5.4/mingw491_32/include/QtGui/qpen.h \
-		../../../Programs/Qt/5.4/mingw491_32/include/QtWidgets/QVBoxLayout
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/targetwindow.o targetwindow.cpp
+		../../../Programs/Qt/5.4/mingw491_32/include/QtCore/QString
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/lifesupport.o lifesupport.cpp
 
 debug/qrc_resouces.o: debug/qrc_resouces.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/qrc_resouces.o debug/qrc_resouces.cpp

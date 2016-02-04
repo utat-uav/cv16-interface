@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_TargetWindow_t {
-    QByteArrayData data[3];
-    char stringdata[36];
+    QByteArrayData data[4];
+    char stringdata[56];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,11 +30,13 @@ struct qt_meta_stringdata_TargetWindow_t {
 static const qt_meta_stringdata_TargetWindow_t qt_meta_stringdata_TargetWindow = {
     {
 QT_MOC_LITERAL(0, 0, 12), // "TargetWindow"
-QT_MOC_LITERAL(1, 13, 21), // "on_testButton_clicked"
-QT_MOC_LITERAL(2, 35, 0) // ""
+QT_MOC_LITERAL(1, 13, 15), // "on_zbar_pressed"
+QT_MOC_LITERAL(2, 29, 0), // ""
+QT_MOC_LITERAL(3, 30, 25) // "on_classifyButton_pressed"
 
     },
-    "TargetWindow\0on_testButton_clicked\0"
+    "TargetWindow\0on_zbar_pressed\0\0"
+    "on_classifyButton_pressed"
 };
 #undef QT_MOC_LITERAL
 
@@ -44,7 +46,7 @@ static const uint qt_meta_data_TargetWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -52,9 +54,11 @@ static const uint qt_meta_data_TargetWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x08 /* Private */,
+       1,    0,   24,    2, 0x08 /* Private */,
+       3,    0,   25,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -65,7 +69,8 @@ void TargetWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         TargetWindow *_t = static_cast<TargetWindow *>(_o);
         switch (_id) {
-        case 0: _t->on_testButton_clicked(); break;
+        case 0: _t->on_zbar_pressed(); break;
+        case 1: _t->on_classifyButton_pressed(); break;
         default: ;
         }
     }
@@ -97,13 +102,13 @@ int TargetWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }

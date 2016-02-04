@@ -10,6 +10,7 @@
 #include <QPixmap>
 #include <QColor>
 #include <QThread>
+#include "lifesupport.h"
 
 // LOADER THREAD
 class Loader : public QThread
@@ -36,11 +37,13 @@ class TargetListWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit TargetListWindow(QProcess *classifier, QWidget *parent = 0);
+    explicit TargetListWindow(LifeSupport* dataPackage, QWidget *parent = 0);
     Ui::TargetListWindow *ui ;
     ~TargetListWindow();
     void setMainPic (QString imagePath) ;
     void loadTargets (QString folderPath, QString filePath) ;
+    //QString selected();
+    void changeDesc(QString desc) ;
 
 private slots:
     void on_newItem_clicked();
@@ -68,7 +71,7 @@ private:
     QSettings *resultFile;
     TargetList *targetList;
     int colCount;
-    QProcess *classifier;
+    LifeSupport* data;
 };
 
 #endif // TARGETLISTWINDOW_H

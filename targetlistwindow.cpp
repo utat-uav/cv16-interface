@@ -1,7 +1,7 @@
 #include "targetlistwindow.h"
 #include "ui_targetlistwindow.h"
 
-TargetListWindow::TargetListWindow(QProcess *classifier, QWidget *parent) :
+TargetListWindow::TargetListWindow(LifeSupport *dataPackage, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TargetListWindow)
 {
@@ -18,7 +18,7 @@ TargetListWindow::TargetListWindow(QProcess *classifier, QWidget *parent) :
 
     resultFile = NULL;
 
-    this->classifier = classifier;
+    this->data=dataPackage;
 
     // Set row size
     ui->targetListTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
@@ -26,6 +26,8 @@ TargetListWindow::TargetListWindow(QProcess *classifier, QWidget *parent) :
     ui->targetListTable->horizontalHeader()->setMinimumSectionSize(100);
     ui->targetListTable->verticalHeader()->setDefaultSectionSize(100);
     //ui->targetListTable->setStyleSheet("QTableWidget {selection-background-color: #00000000; selection-color: white}");
+
+
 }
 
 TargetListWindow::~TargetListWindow()
@@ -175,6 +177,7 @@ void TargetListWindow::setMainPic (QString imagePath) {
     }
 }
 
+
 void TargetListWindow::loadTargets(QString folderPath, QString filePath){
     // Starts a new thread to load it
     loader = new Loader(targetList, folderPath, filePath);
@@ -198,7 +201,7 @@ void Loader::run()
             QString coord = resultFile.value("Crop "+QString::number(i)+"/X").toString()+", "+resultFile.value("Crop "+QString::number(i)+"/Y").toString() ;
             int x = resultFile.value("Crop "+QString::number(i)+"/X").toInt();
             int y = resultFile.value("Crop "+QString::number(i)+"/Y").toInt();
-            QString desc = "" ;
+            QString desc = resultFile.value("Crop "+QString::number(i)+"/Description").toString() ;
             try {
                 targetList->addNewRow(folderPath+"/"+imagePath,name,coord,desc, x, y);
             }
@@ -221,9 +224,11 @@ void Loader::run()
 void TargetListWindow::on_targetListTable_doubleClicked(const QModelIndex &index)
 {
     int rowNum = index.row();
-    TargetWindow *targetWindow = new TargetWindow(classifier, targetList->getRows()->at(rowNum), this);
+    TargetWindow *targetWindow = new TargetWindow(data, targetList->getRows()->at(rowNum), this);
     targetWindow->setModal(true);
     targetWindow->setWindowTitle("Target");
+
+    data->imagePath = targetList->getRows()->at(rowNum)->name->text() ;
 
     // Opens edit window
     targetWindow->exec();
@@ -255,4 +260,28 @@ void TargetListWindow::on_targetListTable_clicked(const QModelIndex &index)
     painter.drawRect(rect);
     painter.end();
     ui->mainpic->setPixmap(pixmap);
+}
+
+/*QString TargetListWindow::selected(){
+    QItemSelectionModel *select = ui->targetListTable->selectionModel();
+    QModelIndexList selectedRows = select->selectedRows();
+
+    if (select->hasSelection() && selectedRows.length() == 1) { // only 1 item can be selected
+        QList<QModelIndex>::iterator i = selectedRows.begin();
+        int selectedRow = i->row(); // gets the selected row number
+        return targetList->getRows()->at(selectedRow)->name->text() ;
+    }
+    else
+        return NULL ;
+}*/
+
+void TargetListWindow::changeDesc ( QString desc ) {
+    QItemSelectionModel *select = ui->targetListTable->selectionModel();
+    QModelIndexList selectedRows = select->selectedRows();
+
+    if (select->hasSelection() && selectedRows.length() == 1) { // only 1 item can be selected
+        QList<QModelIndex>::iterator i = selectedRows.begin();
+        int selectedRow = i->row(); // gets the selected row number
+        targetList->getRows()->at(selectedRow)->desc->setText(desc);
+    }
 }

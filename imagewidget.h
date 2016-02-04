@@ -9,6 +9,7 @@
 #include <QMouseEvent>
 #include <QTabWidget>
 #include "mainwindow.h"
+#include "lifesupport.h"
 
 namespace Ui {
 class ImageWidget;
@@ -19,7 +20,7 @@ class ImageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ImageWidget(QProcess *classifier, MainWindow *parent);
+    explicit ImageWidget(LifeSupport* dataPackage, MainWindow *parent);
 
     // Setters
     void setTitle(QString name);
@@ -65,6 +66,7 @@ private slots:
 
 
 private:
+    LifeSupport* dataPackage ;
     Ui::ImageWidget *ui;
     MainWindow* mainWindow ;
 };

@@ -17,8 +17,8 @@
 #include <QProcess>
 #include <QCompleter>
 #include <QMessageBox>
-#include "targetlistwindow.h"
 #include <QStringListModel>
+#include "lifesupport.h"
 
 namespace Ui {
 class MainWindow;
@@ -69,9 +69,11 @@ protected:
 private:
     Ui::MainWindow *ui;
     QList<ImageWidget *> *items;
+    LifeSupport* dataPackage ;
     QProcess *classifier;
     QCompleter *completer;
     QStringList prevCommands;
+    QString currentFile, currentImage ;
     int tableWidth;
     int cellHeight;
     int cellWidth;

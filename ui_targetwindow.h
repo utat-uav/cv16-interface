@@ -39,7 +39,9 @@ public:
     QLabel *coordinatesLabel;
     QLabel *label;
     QTextBrowser *description;
-    QCommandLinkButton *testButton;
+    QHBoxLayout *horizontalLayout_4;
+    QCommandLinkButton *classifyButton;
+    QCommandLinkButton *zbar;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *TargetWindow)
@@ -52,6 +54,7 @@ public:
         verticalLayout->setSizeConstraint(QLayout::SetFixedSize);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setSizeConstraint(QLayout::SetFixedSize);
         targetPic = new QLabel(TargetWindow);
         targetPic->setObjectName(QStringLiteral("targetPic"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -73,6 +76,7 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setSizeConstraint(QLayout::SetFixedSize);
         verticalLayout_2->setContentsMargins(0, -1, -1, -1);
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
@@ -136,12 +140,31 @@ public:
 
         verticalLayout_2->addWidget(description);
 
-        testButton = new QCommandLinkButton(TargetWindow);
-        testButton->setObjectName(QStringLiteral("testButton"));
-        sizePolicy1.setHeightForWidth(testButton->sizePolicy().hasHeightForWidth());
-        testButton->setSizePolicy(sizePolicy1);
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setSizeConstraint(QLayout::SetFixedSize);
+        classifyButton = new QCommandLinkButton(TargetWindow);
+        classifyButton->setObjectName(QStringLiteral("classifyButton"));
+        sizePolicy1.setHeightForWidth(classifyButton->sizePolicy().hasHeightForWidth());
+        classifyButton->setSizePolicy(sizePolicy1);
+        classifyButton->setMinimumSize(QSize(128, 0));
+        classifyButton->setMaximumSize(QSize(128, 16777215));
 
-        verticalLayout_2->addWidget(testButton);
+        horizontalLayout_4->addWidget(classifyButton);
+
+        zbar = new QCommandLinkButton(TargetWindow);
+        zbar->setObjectName(QStringLiteral("zbar"));
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(zbar->sizePolicy().hasHeightForWidth());
+        zbar->setSizePolicy(sizePolicy3);
+        zbar->setMaximumSize(QSize(128, 16777215));
+
+        horizontalLayout_4->addWidget(zbar);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_4);
 
 
         horizontalLayout->addLayout(verticalLayout_2);
@@ -173,7 +196,8 @@ public:
         label_2->setText(QApplication::translate("TargetWindow", "Coordinates:", 0));
         coordinatesLabel->setText(QApplication::translate("TargetWindow", "TextLabel", 0));
         label->setText(QApplication::translate("TargetWindow", "Description:", 0));
-        testButton->setText(QApplication::translate("TargetWindow", "Run Scripts", 0));
+        classifyButton->setText(QApplication::translate("TargetWindow", "Classify", 0));
+        zbar->setText(QApplication::translate("TargetWindow", "zbar", 0));
     } // retranslateUi
 
 };

@@ -8,6 +8,7 @@ INPUT(
 ./release/targetlistitem.o
 ./release/targetmaker.o
 ./release/targetwindow.o
+./release/lifesupport.o
 ./release/qrc_resouces.o
 ./release/moc_mainwindow.o
 ./release/moc_imagewidget.o

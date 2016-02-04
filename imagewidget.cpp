@@ -1,7 +1,7 @@
 #include "imagewidget.h"
 #include "ui_imagewidget.h"
 
-ImageWidget::ImageWidget(QProcess *classifier, MainWindow *parent) :
+ImageWidget::ImageWidget(LifeSupport *dataPackage, MainWindow *parent) :
     QWidget(parent),
     ui(new Ui::ImageWidget)
 {
@@ -11,6 +11,7 @@ ImageWidget::ImageWidget(QProcess *classifier, MainWindow *parent) :
 
     this->seen = false;
     mainWindow = parent ;
+    this->dataPackage=dataPackage;
 
     // Initialize imageLabel
     //setImage(":/images/Untitled.png");
@@ -18,7 +19,7 @@ ImageWidget::ImageWidget(QProcess *classifier, MainWindow *parent) :
     //ui->imageLabel->setScaledContents(true);
     //ui->imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 
-    targetList = new TargetListWindow(classifier);
+    targetList = new TargetListWindow(dataPackage);
     targetListInitialized = false;
 
 
@@ -154,6 +155,8 @@ void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
     if ( event->button() == Qt::LeftButton ){
         ui->colourLabel->setStyleSheet("QLabel { background-color : green; color : blue; }"); // Mark as seen
         this->seen = true;
+
+        dataPackage->filePath=filePath;
 
         /*
         if (!targetListInitialized) {

@@ -4,6 +4,8 @@
 #include <QDialog>
 #include "targetlistitem.h"
 #include <QProcess>
+#include <QSettings>
+#include "lifesupport.h"
 
 namespace Ui {
 class TargetWindow;
@@ -14,14 +16,19 @@ class TargetWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit TargetWindow(QProcess *classifier, TargetListItem *targetListItem, QWidget *parent = 0);
+    explicit TargetWindow(LifeSupport* dataPackage, TargetListItem *targetListItem, QWidget *parent = 0);
     ~TargetWindow();
 
 private slots:
-    void on_testButton_clicked();
+
+    void on_zbar_pressed();
+
+    void on_classifyButton_pressed();
 
 private:
-    QProcess *classifier;
+    void classify() ;
+    void zbar() ;
+    LifeSupport* dataPackage;
     Ui::TargetWindow *ui;
     TargetListItem *targetListItem;
 };

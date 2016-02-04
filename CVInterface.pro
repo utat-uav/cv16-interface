@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     targetlist.cpp \
     targetlistitem.cpp \
     targetmaker.cpp \
-    targetwindow.cpp
+    targetwindow.cpp \
+    lifesupport.cpp
 
 HEADERS  += mainwindow.h \
     imagewidget.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     targetlist.h \
     targetlistitem.h \
     targetmaker.h \
-    targetwindow.h
+    targetwindow.h \
+    lifesupport.h
 
 FORMS    += mainwindow.ui \
     imagewidget.ui \

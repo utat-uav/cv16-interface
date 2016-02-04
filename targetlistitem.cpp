@@ -11,7 +11,8 @@ TargetListItem::TargetListItem(QString imageFilePath, QTableWidgetItem *i, QTabl
 
     this->imageFilePath = imageFilePath;
 
-    desc->setText("File Path: " + this->imageFilePath);
+    if (desc->text()=="")
+        desc->setText("File Path: " + this->imageFilePath);
 }
 
 TargetListItem::~TargetListItem()

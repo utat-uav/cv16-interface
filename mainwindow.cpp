@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Set up completer
     completer = new QCompleter(prevCommands, this);
     ui->consoleCommander->setCompleter(completer);
+    dataPackage = new LifeSupport(classifier,ui->consoleOutput) ;
 }
 
 void MainWindow::ReadOut()
@@ -163,7 +164,7 @@ void MainWindow::refreshTable()
     // Makes copy of the items
     QList<ImageWidget *> *itemsCopy = new QList<ImageWidget *>;
     for (int i = 0; i < items->size(); i++) {
-        ImageWidget *temp = new ImageWidget(classifier, this);
+        ImageWidget *temp = new ImageWidget(dataPackage, this);
         // Copy all information over
         temp->setImage(items->at(i)->getImage());
         temp->setTitle(items->at(i)->getTitle());
@@ -227,7 +228,7 @@ void MainWindow::refreshTable()
 void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets)
 {
     // Creates item
-    ImageWidget *newWidget = new ImageWidget(classifier, this);
+    ImageWidget *newWidget = new ImageWidget(dataPackage, this);
     newWidget->setTitle(title);
     newWidget->setImage(imagePath);
     newWidget->setFilePath(filePath);
@@ -247,8 +248,10 @@ void MainWindow::indexToCoordinates(int index, int *r, int *c)
 
 void MainWindow::on_loadButton_clicked()
 {
+    QSettings config(QDir::currentPath()+"config.ini",QSettings::IniFormat);
     // Gets the directory from a separate window
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Load Directory..."), config.value("User Settings/Image Folder","/home").toString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    config.setValue("User Settings/Image Folder",dir);
     // Create filter
     QStringList nameFilter;
     nameFilter.append("*.ini");
@@ -398,4 +401,7 @@ void MainWindow::on_consoleCommander_returnPressed()
 
     // Clear commander
     ui->consoleCommander->setText("");
+
 }
+
+
