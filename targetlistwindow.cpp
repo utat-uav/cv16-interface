@@ -1,5 +1,6 @@
 #include "targetlistwindow.h"
 #include "ui_targetlistwindow.h"
+#include "qevent.h"
 
 TargetListWindow::TargetListWindow(LifeSupport *dataPackage, QWidget *parent) :
     QDialog(parent),
@@ -284,4 +285,16 @@ void TargetListWindow::changeDesc ( QString desc ) {
         int selectedRow = i->row(); // gets the selected row number
         targetList->getRows()->at(selectedRow)->desc->setText(desc);
     }
+}
+
+CustomLabel::CustomLabel( QWidget* parent, Qt::WindowFlags f )
+    : QLabel( parent, f ) {}
+
+CustomLabel::CustomLabel( const QString& text, QWidget* parent, Qt::WindowFlags f )
+    : QLabel( text, parent, f ) {}
+
+void CustomLabel::mousePressedEvent( QMouseEvent* ev )
+{
+    const QPoint p = ev->pos();
+    emit mousePressed(p);
 }
