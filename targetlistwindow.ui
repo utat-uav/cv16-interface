@@ -29,7 +29,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="mainpic">
+      <widget class="CustomLabel" name="mainpic">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -428,6 +428,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>targetlistwindow.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resouces.qrc"/>
  </resources>
