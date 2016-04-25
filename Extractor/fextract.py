@@ -1,4 +1,4 @@
-﻿import cv2
+import cv2
 import numpy
 import os
 import shutil
@@ -307,7 +307,7 @@ def main():
     if _MYPARAMS['USE_TREE_FILTER']:
         averagedClusters, clusterSizes = filterTrees(imgin, averagedClusters, clusterSizes)
 
-	imageName = os.path.basename(_MYPARAMS['IMAGE']).split('.')[0]
+    imageName = os.path.basename(_MYPARAMS['IMAGE']).split('.')[0]
 		
     croppedImgNames = []
     print("Cropping...")
@@ -348,6 +348,6 @@ if __name__ == "__main__":
     _MYPARAMS['IMAGE'] = sys.argv[1];
     _MYPARAMS['GPS_LOG'] = sys.argv[2];
     _MYPARAMS['OUTPUT_FOLDER'] = sys.argv[3] + '\\';
-    print _MYPARAMS['OUTPUT_FOLDER']
+    print (_MYPARAMS['OUTPUT_FOLDER'])
     main()
     
