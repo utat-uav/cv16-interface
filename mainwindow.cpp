@@ -125,6 +125,8 @@ void MainWindow::resizeEvent(QResizeEvent* e)
 
 void MainWindow::resizeTable()
 {
+    //return; // Disable resizing
+
     // Gets table width
     tableWidth = ui->photoListTable->width()-19;
 
@@ -135,6 +137,7 @@ void MainWindow::resizeTable()
     cellHeight = cellWidth * 4/5 + 23;
 
     // Rethinks the number of columns
+    /*
     if (tableWidth < 1150) {
         if (colCount != 4) {
             setColumnCount(4);
@@ -147,6 +150,7 @@ void MainWindow::resizeTable()
             refreshTable();
         }
     }
+    */
 
     // Resizes each column
     for (int i = 0; i < colCount; i++) {
@@ -266,8 +270,10 @@ void MainWindow::on_loadButton_clicked()
         QSettings resultFile(filePath,QSettings::IniFormat);
         QString imagePath = resultFile.value("Analysis Parameters/IMAGE","").toString() ; //pass directory to image widget
         int numTargets = resultFile.value("Crop Info/Number of Crops", "").toInt(); // gets the number of targets
+        QFileInfo fileInfo(imagePath);
+        QString filename(fileInfo.fileName());
         if ( imagePath != "" ){
-            appendItem(dir, filePath, dir+"/"+imagePath, imagePath, numTargets);
+            appendItem(dir, filePath, imagePath, filename, numTargets);
         }
     }
 
@@ -405,3 +411,15 @@ void MainWindow::on_consoleCommander_returnPressed()
 }
 
 
+
+void MainWindow::on_actionProcess_Image_Set_triggered()
+{
+    ImageSetProcessor *processor = new ImageSetProcessor();
+    processor->setModal(true);
+    processor->setWindowTitle("Image Processor");
+
+    // Starts the dialog
+    processor->exec();
+
+    delete processor;
+}

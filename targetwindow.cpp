@@ -78,3 +78,8 @@ void TargetWindow::zbar(){
     disconnect(dataPackage->consoleOutput,&QTextBrowser::textChanged, this, &TargetWindow::zbar) ;
     this->accept();
 }
+
+void TargetWindow::on_zbar_clicked()
+{
+
+}

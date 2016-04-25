@@ -6,11 +6,29 @@ InputImage::~InputImage()
 	delete[] imageArray;
 }
 
-InputImage::InputImage(Mat *directMat, char correctLabel, bool testImage, bool appendOne)
+void InputImage::rotateImage(Mat& image, int degrees) {
+	// get rotation matrix for rotating the image around its center
+	Point2f center(image.cols / 2.0, image.rows / 2.0);
+	Mat rot = getRotationMatrix2D(center, degrees, 1.0);
+
+	// determine bounding rectangle
+	Rect bbox = RotatedRect(center, image.size(), degrees).boundingRect();
+
+	// adjust transformation matrix
+	rot.at<double>(0, 2) += bbox.width / 2.0 - center.x;
+	rot.at<double>(1, 2) += bbox.height / 2.0 - center.y;
+
+	warpAffine(image, image, rot, bbox.size());
+}
+
+InputImage::InputImage(Mat *directMat, char correctLabel, bool testImage, bool appendOne, bool noMemoryConservation)
 {
+	imageArray = NULL;
+
 	directMat->copyTo(image);
 
-	image.copyTo(originalImage);
+	if (noMemoryConservation)
+		image.copyTo(originalImage);
 
 	if (testImage)
 	{
@@ -58,20 +76,25 @@ InputImage::InputImage(Mat *directMat, char correctLabel, bool testImage, bool a
 	// Convert to floats
 	image.convertTo(image, CV_32FC1);
 
-	imageArray = new float*[image.rows];
+	if (noMemoryConservation)
+		imageArray = new float*[image.rows];
 	for (int i = 0; i < image.rows; i++)
 	{
-		image.at<float>(i, 0) = image.at<float>(i, 0) >= 1 ? 0.5 : -0.5;
-		imageArray[i] = &(image.at<float>(i, 0));
+		image.at<float>(i, 0) = image.at<float>(i, 0) >= 1 ? 1.0 : 0.0; // Used to be 0.5 : -0.5;
+		if (noMemoryConservation)
+			imageArray[i] = &(image.at<float>(i, 0));
 	}
 }
 
-InputImage::InputImage(string path, bool testImage, bool appendOne)
+InputImage::InputImage(string path, bool testImage, bool appendOne, bool noMemoryConservation)
 {
+	imageArray = NULL;
+
 	// Load image
 	image = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
 
-	image.copyTo(originalImage);
+	if (noMemoryConservation)
+		image.copyTo(originalImage);
 
 	if (testImage)
 	{
@@ -106,12 +129,10 @@ InputImage::InputImage(string path, bool testImage, bool appendOne)
 	charLabel = character;
 
 	// Get label
-	int labelArray[LABEL_SIZE] = { 0 };
 	labelIndex = charToOneHotIndex(character);
-	labelArray[labelIndex] = 1;
-
 	// Push label (one-hot encoded vector)
-	label = vector<int>(labelArray, labelArray + sizeof(labelArray) / sizeof(int));
+	label = vector<int>(LABEL_SIZE, 0);
+	label[labelIndex] = 1;
 
 	// Concatenate a 1 to the end of the matrix
 	if (appendOne)
@@ -123,13 +144,14 @@ InputImage::InputImage(string path, bool testImage, bool appendOne)
 	// Convert to floats
 	image.convertTo(image, CV_32FC1);
 
-	imageArray = new float*[image.rows];
+	if (noMemoryConservation)
+		imageArray = new float*[image.rows];
 	for (int i = 0; i < image.rows; i++)
 	{
-		image.at<float>(i, 0) = image.at<float>(i, 0) >= 1 ? 0.5 : -0.5;
-		imageArray[i] = &(image.at<float>(i, 0));
+		image.at<float>(i, 0) = image.at<float>(i, 0) >= 1 ? 1.0 : 0.0; // Used to be 0.5 : -0.5;
+		if (noMemoryConservation)
+			imageArray[i] = &(image.at<float>(i, 0));
 	}
-
 }
 
 void InputImage::cropImage()

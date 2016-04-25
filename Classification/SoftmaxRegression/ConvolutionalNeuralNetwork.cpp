@@ -468,12 +468,10 @@ char ConvolutionalNeuralNetwork::classifyWithRotation(InputImage *image, float &
 	#pragma omp parallel for
 	for (int angle = 0; angle < 360; angle += rotationIntervals)
 	{
-		// Get rotation matrix
-		Mat rotationMatrix = getRotationMatrix2D(Point2f(originalImage->rows / 2, originalImage->cols / 2), angle, 1.0);
-
 		// Do rotation
 		Mat rotatedImage;
-		warpAffine(*originalImage, rotatedImage, rotationMatrix, Size(originalImage->rows, originalImage->cols));
+		originalImage->copyTo(rotatedImage);
+		InputImage::rotateImage(rotatedImage, angle);
 
 		// Do classification
 		InputImage rotatedInputImage(&rotatedImage, image->getCharLabel(), true);

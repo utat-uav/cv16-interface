@@ -87,8 +87,8 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(newItem->sizePolicy().hasHeightForWidth());
         newItem->setSizePolicy(sizePolicy2);
-        newItem->setMinimumSize(QSize(100, 45));
-        newItem->setMaximumSize(QSize(1677215, 16777215));
+        newItem->setMinimumSize(QSize(1, 45));
+        newItem->setMaximumSize(QSize(1, 16777215));
         QFont font;
         font.setFamily(QStringLiteral("Segoe UI"));
         font.setPointSize(9);

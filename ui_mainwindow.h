@@ -19,6 +19,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
@@ -32,6 +33,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionProcess_Image_Set;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
@@ -41,6 +43,7 @@ public:
     QCommandLinkButton *deleteItemButton;
     QTableWidget *photoListTable;
     QMenuBar *menuBar;
+    QMenu *menuFile;
     QStatusBar *statusBar;
     QDockWidget *dockWidget_2;
     QWidget *dockWidgetContents_2;
@@ -65,6 +68,8 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
+        actionProcess_Image_Set = new QAction(MainWindow);
+        actionProcess_Image_Set->setObjectName(QStringLiteral("actionProcess_Image_Set"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);
@@ -135,6 +140,8 @@ public:
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1200, 21));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -193,6 +200,9 @@ public:
         dockWidget->setWidget(dockWidgetContents);
         MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockWidget);
 
+        menuBar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionProcess_Image_Set);
+
         retranslateUi(MainWindow);
 
         tabWidget->setCurrentIndex(1);
@@ -204,9 +214,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "CV Interface", 0));
+        actionProcess_Image_Set->setText(QApplication::translate("MainWindow", "Process Image Set", 0));
         loadButton->setText(QApplication::translate("MainWindow", "Load From Folder", 0));
         editButton->setText(QApplication::translate("MainWindow", "Edit", 0));
         deleteItemButton->setText(QApplication::translate("MainWindow", "Delete", 0));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         dockWidget_2->setWindowTitle(QApplication::translate("MainWindow", "Target Lists", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));

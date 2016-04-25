@@ -25,6 +25,8 @@ private slots:
 
     void on_classifyButton_pressed();
 
+    void on_zbar_clicked();
+
 private:
     void classify() ;
     void zbar() ;

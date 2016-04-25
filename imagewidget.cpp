@@ -108,7 +108,7 @@ void ImageWidget::setImage(QString imagePath)
     if (imagePath != "") {
         QPixmap *pix = new QPixmap();
         pix->load(imagePath);
-        image = pix->scaled(240, 240, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation);
+        image = pix->scaled(220, 220, Qt::KeepAspectRatioByExpanding, Qt::FastTransformation);
         ui->imageLabel->setPixmap(image);
         this->imagePath = imagePath;
         delete pix;

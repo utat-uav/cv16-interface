@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TrainingSet.h"
 
-TrainingSet::TrainingSet(string path, bool testSet)
+TrainingSet::TrainingSet(string path, bool testSet, bool noMemoryConserve)
 {
 	// Get file names
 	vector<string> files;
@@ -13,7 +13,7 @@ TrainingSet::TrainingSet(string path, bool testSet)
 	// Attempt opening directory
 	if (NULL == (pipe = _popen(pCmd.c_str(), "rt")))
 	{
-		cout << "Shit" << endl;
+		cout << "Shit. Directory's broken." << endl;
 		return;
 	}
 
@@ -35,11 +35,12 @@ TrainingSet::TrainingSet(string path, bool testSet)
 		// Remove \n character
 		file->pop_back();
 
-		InputImage *inputImage = new InputImage(*file, testSet);
+		InputImage *inputImage = new InputImage(*file, testSet, true, noMemoryConserve);
 
 		// Validity check
 		if (!inputImage->isValid())
 		{
+			delete inputImage;
 			cout << path << " is not valid data" << endl;
 			continue;
 		}

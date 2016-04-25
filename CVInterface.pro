@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     targetlistitem.cpp \
     targetmaker.cpp \
     targetwindow.cpp \
-    lifesupport.cpp
+    lifesupport.cpp \
+    imagesetprocessor.cpp
 
 HEADERS  += mainwindow.h \
     imagewidget.h \
@@ -31,14 +32,16 @@ HEADERS  += mainwindow.h \
     targetlistitem.h \
     targetmaker.h \
     targetwindow.h \
-    lifesupport.h
+    lifesupport.h \
+    imagesetprocessor.h
 
 FORMS    += mainwindow.ui \
     imagewidget.ui \
     itemmaker.ui \
     targetlistwindow.ui \
     targetmaker.ui \
-    targetwindow.ui
+    targetwindow.ui \
+    imagesetprocessor.ui
 
 DISTFILES += \
     clasic.png \
@@ -50,4 +53,7 @@ DISTFILES += \
 RESOURCES += \
     resouces.qrc
 
+QMAKE_CXXFLAGS += -fopenmp
+LIBS += -fopenmp
+	
 win32:RC_ICONS += Icon.ico

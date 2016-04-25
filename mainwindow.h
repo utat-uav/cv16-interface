@@ -19,6 +19,7 @@
 #include <QMessageBox>
 #include <QStringListModel>
 #include "lifesupport.h"
+#include "imagesetprocessor.h"
 
 namespace Ui {
 class MainWindow;
@@ -54,6 +55,8 @@ private slots:
     void on_tabWidget_tabCloseRequested(int index);
 
     void on_consoleCommander_returnPressed();
+
+    void on_actionProcess_Image_Set_triggered();
 
 protected:
     void resizeEvent(QResizeEvent *e);

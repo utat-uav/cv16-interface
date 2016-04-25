@@ -13,8 +13,9 @@ private:
 	void cropImage();
 
 public:
-	InputImage(string path, bool testImage = false, bool appendOne = true);
-	InputImage(Mat *directMat, char correctLabel, bool testImage = false, bool appendOne = true);
+	// If conserve memory, then original image will not be saved
+	InputImage(string path, bool testImage = false, bool appendOne = true, bool noMemoryConservation = true);
+	InputImage(Mat *directMat, char correctLabel, bool testImage = false, bool appendOne = true, bool noMemoryConservation = true);
 	~InputImage();
 	vector<float> getVectorizedImage();
 	Mat* getImage();
@@ -24,6 +25,7 @@ public:
 	int getLabelIndex();
 	float **imageArray;
 	Mat* getOriginalimage();
+	static void rotateImage(Mat& image, int degrees);
 
 	static int charToOneHotIndex(char c);
 	static int oneHotIndexToChar(int i);

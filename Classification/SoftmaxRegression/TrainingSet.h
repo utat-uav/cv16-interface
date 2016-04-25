@@ -8,7 +8,7 @@ private:
 	vector<InputImage *> data;
 
 public:
-	TrainingSet(string path, bool testSet = false);
+	TrainingSet(string path, bool testSet = false, bool noMemoryConserve = true);
 	~TrainingSet();
 
 	vector<InputImage *>* getData();

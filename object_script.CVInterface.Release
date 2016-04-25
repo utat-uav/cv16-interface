@@ -9,6 +9,7 @@ INPUT(
 ./release/targetmaker.o
 ./release/targetwindow.o
 ./release/lifesupport.o
+./release/imagesetprocessor.o
 ./release/qrc_resouces.o
 ./release/moc_mainwindow.o
 ./release/moc_imagewidget.o
@@ -16,4 +17,5 @@ INPUT(
 ./release/moc_targetlistwindow.o
 ./release/moc_targetmaker.o
 ./release/moc_targetwindow.o
+./release/moc_imagesetprocessor.o
 );

@@ -30,6 +30,18 @@ void saveProcessedDataset(string path);
 
 int main(int argc, char** argv)
 {
+	/*
+	// Serialize for training/testing
+	//saveProcessedDataset("D:\\Workspace\\UAV\\classification-training\\training2\\allinone\\");
+	saveProcessedDataset("D:\\Workspace\\UAV\\classification-training\\Images\\Reformatted\\");
+	return 0;
+
+	// Fix oliver's shit
+	FileManager fileManager("D:\\Workspace\\UAV\\classification-training\\Images\\JPEG\\");
+	fixOliversShit("D:\\Workspace\\UAV\\classification-training\\Images\\Reformatted\\", fileManager);
+	return 0;
+	*/
+
 	credits();
 
 	if (argc < 2)
@@ -109,11 +121,6 @@ int main(int argc, char** argv)
 	}
 
 	//InputImage img("D:\\Workspace\\UAV\\classification-training\\Testingset\\test.png", true);
-	
-	// Reformats training set
-	//FileManager files("D:\\Downloads\\training2\\upper\\");
-	//resaveImages("D:\\Downloads\\training2\\allinone\\", files);
-	//fixOliversShit("D:\\Downloads\\Images\\Reformatted\\", files);
 
 	//int test = InputImage::charToOneHotIndex('Z');
 	//char test2 = InputImage::oneHotIndexToChar(test);
@@ -166,7 +173,7 @@ void run(string path, string serializedNN)
 void saveProcessedDataset(string path)
 {
 	cout << "Loading images..." << endl;
-	TrainingSet testSet(path);
+	TrainingSet testSet(path, false, false); // Conserve memory
 
 	cout << "Writing data..." << endl;
 	ofstream savedDataSet;
@@ -209,7 +216,7 @@ void credits()
 	cout << endl;
 	cout << "Author(s): Davis Wu" << endl;
 	cout << "Creation Date: Dec 30, 2015" << endl;
-	cout << "Latest Modification Date: Jan 2, 2016" << endl;
+	cout << "Latest Modification Date: April 6, 2016" << endl;
 	cout << "Info: attempts to classify characters" << endl;
 	cout << endl;
 	cout << "Command line info: [-t <trainingset> <testset>] to train program" << endl;
@@ -266,80 +273,91 @@ void fixOliversShit(string outputFolder, FileManager& files)
 			label = ' ';
 		}
 
-		// Open file
-		Mat image;
-		image = imread(*file, IMREAD_COLOR); // Read the file
+		//#pragma omp parallel for
+		for (int rotIndex = 0; rotIndex < 3; rotIndex++) {
+			// Calculate rotation from index
+			int rot = -12 + rotIndex * 12;
 
-		// Convert colours
-		cvtColor(image, image, CV_BGR2GRAY);
-		threshold(image, image, 128, 255, CV_THRESH_BINARY);
-		Mat imageCpy;
-		image.copyTo(imageCpy);
+			// Open file
+			Mat image;
+			image = imread(*file, IMREAD_COLOR); // Read the file
 
-		// Get bounding boxes
-		int largestRow = 0, smallestRow = INFINITY * 2, largestCol = 0, smallestCol = INFINITY * 2;
-		for (int i = 0; i < image.rows; ++i)
-		{
-			for (int j = 0; j < image.cols; ++j)
+			// Rotate
+			InputImage::rotateImage(image, rot);
+
+			// Convert colours
+			cvtColor(image, image, CV_BGR2GRAY);
+			threshold(image, image, 128, 255, CV_THRESH_BINARY);
+			Mat imageCpy;
+			image.copyTo(imageCpy);
+
+			// Get bounding boxes
+			int largestRow = 0, smallestRow = INFINITY * 2, largestCol = 0, smallestCol = INFINITY * 2;
+			for (int i = 0; i < image.rows; ++i)
 			{
-				uchar test = image.at<uchar>(i, j);
-				if (image.at<uchar>(i, j) > 0)
+				for (int j = 0; j < image.cols; ++j)
 				{
-					if (i < smallestRow)
-						smallestRow = i;
-					if (j < smallestCol)
-						smallestCol = j;
-					if (i > largestRow)
-						largestRow = i;
-					if (j > largestCol)
-						largestCol = j;
+					uchar test = image.at<uchar>(i, j);
+					if (image.at<uchar>(i, j) > 0)
+					{
+						if (i < smallestRow)
+							smallestRow = i;
+						if (j < smallestCol)
+							smallestCol = j;
+						if (i > largestRow)
+							largestRow = i;
+						if (j > largestCol)
+							largestCol = j;
+					}
 				}
 			}
-		}
-		Rect cropRect(smallestCol, smallestRow, largestCol - smallestCol + 1, largestRow - smallestRow + 1);
+			Rect cropRect(smallestCol, smallestRow, largestCol - smallestCol + 1, largestRow - smallestRow + 1);
 
-		// Modify rect for smallest possible square dimensions
-		int diff;
-		if (cropRect.width > cropRect.height)
-		{
-			diff = cropRect.width - cropRect.height;
-			cropRect.y -= round((double) diff / 2);
-			if (cropRect.y <= 0)
-				cropRect.y = 0;
-			cropRect.height += diff;
-			if (cropRect.y + cropRect.height >= image.rows)
-				cropRect.height = image.rows - cropRect.y - 1;
-		}
-		else
-		{
-			diff = cropRect.height - cropRect.width;
-			cropRect.x -= round((double)diff / 2);
-			if (cropRect.x <= 0)
-				cropRect.x = 0;
-			cropRect.width += diff;
-			if (cropRect.x + cropRect.width >= image.cols)
-				cropRect.width = image.cols - cropRect.x - 1;
-		}
-		
-		
-		// Crop image
-		try
-		{
-			image = image(cropRect);
-		}
-		catch (cv::Exception &e)
-		{
-			cout << "hmmm something went wrong" << endl;
+			// Modify rect for smallest possible square dimensions
+			int diff;
+			if (cropRect.width > cropRect.height)
+			{
+				diff = cropRect.width - cropRect.height;
+				cropRect.y -= round((double)diff / 2);
+				if (cropRect.y <= 0)
+					cropRect.y = 0;
+				cropRect.height += diff;
+				if (cropRect.y + cropRect.height >= image.rows)
+					cropRect.height = image.rows - cropRect.y - 1;
+			}
+			else
+			{
+				diff = cropRect.height - cropRect.width;
+				cropRect.x -= round((double)diff / 2);
+				if (cropRect.x <= 0)
+					cropRect.x = 0;
+				cropRect.width += diff;
+				if (cropRect.x + cropRect.width >= image.cols)
+					cropRect.width = image.cols - cropRect.x - 1;
+			}
+
+
+			// Crop image
+			try
+			{
+				image = image(cropRect);
+			}
+			catch (cv::Exception &e)
+			{
+				cout << "hmmm something went wrong" << endl;
+			}
+
+			// Resize
+			resize(image, image, Size(28, 28));
+
+			string finalFileName = outputFolder + label + "_" + to_string(count) + "_rotated" + to_string(rot) + ".png";
+			imwrite(finalFileName, image);
 		}
 
-		// Resize
-		resize(image, image, Size(28, 28));
-
-		string finalFileName = outputFolder + label + "_" + to_string(count) + ".png";
-		imwrite(finalFileName, image);
 		count++;
 	}
 }
+
 
 /*
 * Does some reformatting

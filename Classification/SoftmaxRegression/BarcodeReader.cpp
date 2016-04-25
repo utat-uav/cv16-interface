@@ -20,8 +20,8 @@ void BarcodeReader::scanImage(string imagePath)
 	scanner.set_config(ZBAR_NONE, ZBAR_CFG_ENABLE, 1);
 
 	// Get image
-	Mat image = imread(imagePath);
-	cvtColor(image, image, CV_BGR2GRAY);
+	Mat image = imread(imagePath, CV_LOAD_IMAGE_GRAYSCALE);
+	//cvtColor(image, image, CV_BGR2GRAY); // Crashes if not BGR
 	int width = image.cols;
 	int height = image.rows;
 	uchar *raw = (uchar *) image.data;

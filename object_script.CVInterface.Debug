@@ -9,6 +9,7 @@ INPUT(
 ./debug/targetmaker.o
 ./debug/targetwindow.o
 ./debug/lifesupport.o
+./debug/imagesetprocessor.o
 ./debug/qrc_resouces.o
 ./debug/moc_mainwindow.o
 ./debug/moc_imagewidget.o
@@ -16,4 +17,5 @@ INPUT(
 ./debug/moc_targetlistwindow.o
 ./debug/moc_targetmaker.o
 ./debug/moc_targetwindow.o
+./debug/moc_imagesetprocessor.o
 );
