@@ -67,9 +67,9 @@ void MainWindow::ReadOut()
     QProcess *p = dynamic_cast<QProcess *>(sender());
     if (p)
     {
-      ui->consoleOutput->moveCursor(QTextCursor::End);
-      ui->consoleOutput->insertPlainText(p->readAllStandardOutput());
-      ui->consoleOutput->moveCursor(QTextCursor::End);
+        ui->consoleOutput->moveCursor(QTextCursor::End);
+        ui->consoleOutput->insertPlainText(p->readAllStandardOutput());
+        ui->consoleOutput->moveCursor(QTextCursor::End);
     }
 }
 
@@ -78,9 +78,9 @@ void MainWindow::ReadErr()
     QProcess *p = dynamic_cast<QProcess *>(sender());
     if (p)
     {
-      ui->consoleOutput->moveCursor(QTextCursor::End);
-      ui->consoleOutput->insertPlainText("ERROR: " + p->readAllStandardError());
-      ui->consoleOutput->moveCursor(QTextCursor::End);
+        //ui->consoleOutput->moveCursor(QTextCursor::End);
+        //ui->consoleOutput->insertPlainText("ERROR: " + p->readAllStandardError());
+        //ui->consoleOutput->moveCursor(QTextCursor::End);
     }
 }
 

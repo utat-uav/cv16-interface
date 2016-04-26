@@ -24,7 +24,6 @@ void InputImage::rotateImage(Mat& image, int degrees) {
 InputImage::InputImage(Mat *directMat, char correctLabel, bool testImage, bool appendOne, bool noMemoryConservation)
 {
 	imageArray = NULL;
-
 	directMat->copyTo(image);
 
 	if (noMemoryConservation)
@@ -33,6 +32,8 @@ InputImage::InputImage(Mat *directMat, char correctLabel, bool testImage, bool a
 	if (testImage)
 	{
 		cropImage();
+		//imshow("Cropped", image);
+		//waitKey(0);
 	}
 
 	// Check data validity
@@ -48,7 +49,7 @@ InputImage::InputImage(Mat *directMat, char correctLabel, bool testImage, bool a
 	}
 
 	// Make binary (1 channel with a 0 or 255 value)
-	threshold(image, image, 45.0, 255.0, THRESH_BINARY);
+	threshold(image, image, 128.0, 255.0, THRESH_BINARY);
 
 	// Reshape image into 400 rows and 1 column
 	image = image.reshape(0, DATA_SIZE);
