@@ -1,7 +1,7 @@
 #include "imagewidget.h"
 #include "ui_imagewidget.h"
 
-ImageWidget::ImageWidget(LifeSupport *dataPackage, MainWindow *parent) :
+ImageWidget::ImageWidget(LifeSupport *dataPackage, MainWindow *parent, bool initTargetList) :
     QWidget(parent),
     ui(new Ui::ImageWidget)
 {
@@ -19,7 +19,10 @@ ImageWidget::ImageWidget(LifeSupport *dataPackage, MainWindow *parent) :
     //ui->imageLabel->setScaledContents(true);
     //ui->imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 
-    targetList = new TargetListWindow(dataPackage);
+    if (initTargetList)
+        targetList = new TargetListWindow(dataPackage);
+    else
+        targetList = NULL;
     targetListInitialized = false;
 
 

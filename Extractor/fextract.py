@@ -198,6 +198,9 @@ def compressImage(image):
     
 def main():
     heading = 0
+    latitude = ""
+    longitude = ""
+    altitude = ""
     with open(_MYPARAMS['GPS_LOG'], 'rb') as gpsfile:
         spamreader = csv.reader(gpsfile, delimiter=',', quotechar='|')
         for row in spamreader:
@@ -205,11 +208,16 @@ def main():
             count = 0;
             for name in row:
                 count = count + 1
-                if name == _MYPARAMS['IMAGE']:
+                if name == os.path.basename(_MYPARAMS['IMAGE']):
                     found = True
                 if found and count == 5:
                     heading = float(name)
-
+                if found and count == 2:
+                    latitude = name
+                if found and count == 3:
+                    longitude = name
+                if found and count == 4:
+                    altitude = name
     headingString = headingToString(heading)
 
     # Initialize dbscan
@@ -218,8 +226,13 @@ def main():
     PRINT_LOG_OUT = []
     PRINT_LOG_OUT.append("[Date]")
     PRINT_LOG_OUT.append("Date Analyzed = " + strftime("%Y-%m-%d %H:%M:%S"))
-    PRINT_LOG_OUT.append("\n[Analysis Parameters]")
+    PRINT_LOG_OUT.append("\n[Position]")
     PRINT_LOG_OUT += ["heading = " + headingString]
+    PRINT_LOG_OUT += ["headingDegrees = " + str(heading)]
+    PRINT_LOG_OUT += ["latitude = " + latitude]
+    PRINT_LOG_OUT += ["longitude = " + longitude]
+    PRINT_LOG_OUT += ["altitude = " + altitude]
+    PRINT_LOG_OUT.append("\n[Analysis Parameters]")
     # print parameters
     PRINT_LOG_OUT += [str(k) + " = "  + str(_MYPARAMS[k]) for k in _MYPARAMS.keys()]
     

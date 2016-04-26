@@ -63,7 +63,7 @@ void TargetWindow::classify(){
 
 void TargetWindow::zbar(){
     QString str = dataPackage->consoleOutput->toHtml() ;
-    str.remove(0,str.lastIndexOf("zbar")) ;
+    str.remove(0,str.lastIndexOf("zbar"));
     if ( !str.contains("valid")){
         str.truncate(str.indexOf("<")) ;
         QSettings resultFile(dataPackage->filePath, QSettings::IniFormat);

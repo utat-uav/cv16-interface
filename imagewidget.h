@@ -20,7 +20,7 @@ class ImageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ImageWidget(LifeSupport* dataPackage, MainWindow *parent);
+    explicit ImageWidget(LifeSupport* dataPackage, MainWindow *parent, bool initTargetList = true);
 
     // Setters
     void setTitle(QString name);

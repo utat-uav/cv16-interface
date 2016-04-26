@@ -168,7 +168,7 @@ void MainWindow::refreshTable()
     // Makes copy of the items
     QList<ImageWidget *> *itemsCopy = new QList<ImageWidget *>;
     for (int i = 0; i < items->size(); i++) {
-        ImageWidget *temp = new ImageWidget(dataPackage, this);
+        ImageWidget *temp = new ImageWidget(dataPackage, this, false);
         // Copy all information over
         temp->setImage(items->at(i)->getImage());
         temp->setTitle(items->at(i)->getTitle());

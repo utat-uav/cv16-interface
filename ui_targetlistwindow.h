@@ -18,6 +18,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include "targetlistwindow.h"
 
@@ -28,7 +29,9 @@ class Ui_TargetListWindow
 public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_4;
     CustomLabel *mainpic;
+    QTextBrowser *locationText;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout2;
     QCommandLinkButton *newItem;
@@ -42,7 +45,7 @@ public:
     {
         if (TargetListWindow->objectName().isEmpty())
             TargetListWindow->setObjectName(QStringLiteral("TargetListWindow"));
-        TargetListWindow->resize(1009, 401);
+        TargetListWindow->resize(839, 347);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -54,23 +57,44 @@ public:
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(0, -1, -1, -1);
         mainpic = new CustomLabel(TargetListWindow);
         mainpic->setObjectName(QStringLiteral("mainpic"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(mainpic->sizePolicy().hasHeightForWidth());
         mainpic->setSizePolicy(sizePolicy1);
-        mainpic->setMinimumSize(QSize(400, 0));
+        mainpic->setMinimumSize(QSize(350, 200));
         mainpic->setAutoFillBackground(true);
         mainpic->setFrameShape(QFrame::NoFrame);
         mainpic->setFrameShadow(QFrame::Sunken);
         mainpic->setLineWidth(1);
         mainpic->setMidLineWidth(0);
-        mainpic->setScaledContents(false);
+        mainpic->setScaledContents(true);
         mainpic->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_2->addWidget(mainpic);
+        verticalLayout_4->addWidget(mainpic);
+
+        locationText = new QTextBrowser(TargetListWindow);
+        locationText->setObjectName(QStringLiteral("locationText"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Minimum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(locationText->sizePolicy().hasHeightForWidth());
+        locationText->setSizePolicy(sizePolicy2);
+        locationText->setMaximumSize(QSize(16777215, 37));
+        QFont font;
+        font.setPointSize(8);
+        locationText->setFont(font);
+        locationText->setAutoFillBackground(false);
+
+        verticalLayout_4->addWidget(locationText);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_4);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(0);
@@ -82,17 +106,17 @@ public:
         horizontalLayout2->setSizeConstraint(QLayout::SetNoConstraint);
         newItem = new QCommandLinkButton(TargetListWindow);
         newItem->setObjectName(QStringLiteral("newItem"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(newItem->sizePolicy().hasHeightForWidth());
-        newItem->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(newItem->sizePolicy().hasHeightForWidth());
+        newItem->setSizePolicy(sizePolicy3);
         newItem->setMinimumSize(QSize(1, 45));
         newItem->setMaximumSize(QSize(1, 16777215));
-        QFont font;
-        font.setFamily(QStringLiteral("Segoe UI"));
-        font.setPointSize(9);
-        newItem->setFont(font);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Segoe UI"));
+        font1.setPointSize(9);
+        newItem->setFont(font1);
         QIcon icon;
         icon.addFile(QStringLiteral(":/round75.png"), QSize(), QIcon::Normal, QIcon::Off);
         newItem->setIcon(icon);
@@ -102,11 +126,11 @@ public:
 
         edit = new QCommandLinkButton(TargetListWindow);
         edit->setObjectName(QStringLiteral("edit"));
-        sizePolicy2.setHeightForWidth(edit->sizePolicy().hasHeightForWidth());
-        edit->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(edit->sizePolicy().hasHeightForWidth());
+        edit->setSizePolicy(sizePolicy3);
         edit->setMinimumSize(QSize(100, 45));
         edit->setMaximumSize(QSize(1677215, 16777215));
-        edit->setFont(font);
+        edit->setFont(font1);
         QIcon icon1;
         icon1.addFile(QStringLiteral(":/clasic.png"), QSize(), QIcon::Normal, QIcon::Off);
         edit->setIcon(icon1);
@@ -116,11 +140,11 @@ public:
 
         deleteButton = new QCommandLinkButton(TargetListWindow);
         deleteButton->setObjectName(QStringLiteral("deleteButton"));
-        sizePolicy2.setHeightForWidth(deleteButton->sizePolicy().hasHeightForWidth());
-        deleteButton->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(deleteButton->sizePolicy().hasHeightForWidth());
+        deleteButton->setSizePolicy(sizePolicy3);
         deleteButton->setMinimumSize(QSize(100, 45));
         deleteButton->setMaximumSize(QSize(1677215, 16777215));
-        deleteButton->setFont(font);
+        deleteButton->setFont(font1);
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/delete85.png"), QSize(), QIcon::Normal, QIcon::Off);
         deleteButton->setIcon(icon2);
@@ -130,11 +154,11 @@ public:
 
         upButton = new QCommandLinkButton(TargetListWindow);
         upButton->setObjectName(QStringLiteral("upButton"));
-        sizePolicy2.setHeightForWidth(upButton->sizePolicy().hasHeightForWidth());
-        upButton->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(upButton->sizePolicy().hasHeightForWidth());
+        upButton->setSizePolicy(sizePolicy3);
         upButton->setMinimumSize(QSize(100, 45));
         upButton->setMaximumSize(QSize(1677215, 16777215));
-        upButton->setFont(font);
+        upButton->setFont(font1);
         QIcon icon3;
         icon3.addFile(QStringLiteral(":/up.png"), QSize(), QIcon::Normal, QIcon::Off);
         upButton->setIcon(icon3);
@@ -144,11 +168,11 @@ public:
 
         downButton = new QCommandLinkButton(TargetListWindow);
         downButton->setObjectName(QStringLiteral("downButton"));
-        sizePolicy2.setHeightForWidth(downButton->sizePolicy().hasHeightForWidth());
-        downButton->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(downButton->sizePolicy().hasHeightForWidth());
+        downButton->setSizePolicy(sizePolicy3);
         downButton->setMinimumSize(QSize(100, 45));
         downButton->setMaximumSize(QSize(1677215, 16777215));
-        downButton->setFont(font);
+        downButton->setFont(font1);
         QIcon icon4;
         icon4.addFile(QStringLiteral(":/down.png"), QSize(), QIcon::Normal, QIcon::Off);
         downButton->setIcon(icon4);
@@ -164,29 +188,26 @@ public:
             targetListTable->setColumnCount(4);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         targetListTable->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QFont font1;
-        font1.setFamily(QStringLiteral("Segoe UI"));
-        font1.setPointSize(11);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Segoe UI"));
+        font2.setPointSize(11);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        __qtablewidgetitem1->setFont(font1);
+        __qtablewidgetitem1->setFont(font2);
         targetListTable->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        __qtablewidgetitem2->setFont(font1);
+        __qtablewidgetitem2->setFont(font2);
         targetListTable->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        __qtablewidgetitem3->setFont(font1);
+        __qtablewidgetitem3->setFont(font2);
         targetListTable->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         targetListTable->setObjectName(QStringLiteral("targetListTable"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(targetListTable->sizePolicy().hasHeightForWidth());
-        targetListTable->setSizePolicy(sizePolicy3);
+        sizePolicy1.setHeightForWidth(targetListTable->sizePolicy().hasHeightForWidth());
+        targetListTable->setSizePolicy(sizePolicy1);
         targetListTable->setMinimumSize(QSize(50, 100));
         targetListTable->setMaximumSize(QSize(16777215, 16777215));
-        QFont font2;
-        font2.setPointSize(11);
-        targetListTable->setFont(font2);
+        QFont font3;
+        font3.setPointSize(11);
+        targetListTable->setFont(font3);
         targetListTable->setAlternatingRowColors(false);
         targetListTable->setSelectionMode(QAbstractItemView::ExtendedSelection);
         targetListTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -217,6 +238,11 @@ public:
     {
         TargetListWindow->setWindowTitle(QApplication::translate("TargetListWindow", "MainWindow", 0));
         mainpic->setText(QString());
+        locationText->setHtml(QApplication::translate("TargetListWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8.25pt;\">Default Text</span></p></body></html>", 0));
 #ifndef QT_NO_TOOLTIP
         newItem->setToolTip(QApplication::translate("TargetListWindow", "<html><head/><body><p>Shortcut: <span style=\" font-weight:600;\">ctrl+n</span></p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
