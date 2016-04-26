@@ -32,8 +32,10 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void addTab(QWidget* newTab, QString title) ;
-    bool findTab (QWidget* tab) ;
+    void addTab(QWidget* newTab, QString title);
+    bool findTab (QWidget* tab);
+    void refreshTable();
+    QList<ImageWidget*>* getItems();
     ~MainWindow();
 
 private slots:
@@ -63,7 +65,6 @@ protected:
     void resizeTable();
     void addItem(QString filePath);
     void appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets);
-    void refreshTable();
     void setColumnCount(int col);
     void listFiles(QDir directory, QString indent, QList<QString> &files);
     void indexToCoordinates(int index, int *r, int *c);

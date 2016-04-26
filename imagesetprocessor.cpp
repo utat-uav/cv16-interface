@@ -94,8 +94,8 @@ void ImageSetProcessor::on_buttonBox_clicked(QAbstractButton *button)
         QList<QString> images;
         listFiles(imageFolder, "", images);
 
-        //#pragma omp parallel for
-        for (int i = 0; i < files.size(); i++)
+        #pragma omp parallel for
+        for (int i = 0; i < images.size(); i++)
         {
             // Check file name
             if (images[i].toStdString().find(".jpg") == std::string::npos &&
@@ -122,6 +122,10 @@ void ImageSetProcessor::on_buttonBox_clicked(QAbstractButton *button)
             // Start and wait
             scriptProcess.start(ui->pythonPath->text() + "\\python.exe", args);
             scriptProcess.waitForFinished(-1);
+
+            //QMessageBox msgBox;
+            //msgBox.setText(scriptProcess.readAllStandardError());
+            //msgBox.exec();
         }
     }
 }

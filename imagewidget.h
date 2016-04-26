@@ -20,12 +20,12 @@ class ImageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ImageWidget(LifeSupport* dataPackage, MainWindow *parent);
+    explicit ImageWidget(LifeSupport* dataPackage, MainWindow *parent, bool initTargetList = true);
 
     // Setters
     void setTitle(QString name);
     void setImage(QString imagePath);
-    void setImage(QPixmap resizedImage);
+    void setImage(QPixmap &resizedImage);
     void setFolderPath(QString folderPath) ;
     void setFilePath(QString filePath) ;
     void setImagePath(QString imagePath);
@@ -36,7 +36,7 @@ public:
     // Getters
     QString getTitle() const;
     QString getImagePath() const;
-    QPixmap getImage() const;
+    QPixmap& getImage();
     QString getFolderPath() const;
     QString getFilePath() const;
     TargetListWindow* getTargetList() const;
@@ -56,7 +56,7 @@ protected:
     int numTargets;
     QString filePath ;
     QString imagePath;
-    QString folderPath ;
+    QString folderPath;
     QPixmap image;
     TargetListWindow *targetList;
     bool targetListInitialized;
@@ -64,6 +64,8 @@ protected:
 
 private slots:
 
+
+    void on_pinButton_clicked();
 
 private:
     LifeSupport* dataPackage ;

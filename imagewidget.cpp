@@ -1,7 +1,7 @@
 #include "imagewidget.h"
 #include "ui_imagewidget.h"
 
-ImageWidget::ImageWidget(LifeSupport *dataPackage, MainWindow *parent) :
+ImageWidget::ImageWidget(LifeSupport *dataPackage, MainWindow *parent, bool initTargetList) :
     QWidget(parent),
     ui(new Ui::ImageWidget)
 {
@@ -19,7 +19,10 @@ ImageWidget::ImageWidget(LifeSupport *dataPackage, MainWindow *parent) :
     //ui->imageLabel->setScaledContents(true);
     //ui->imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 
-    targetList = new TargetListWindow(dataPackage);
+    if (initTargetList)
+        targetList = new TargetListWindow(dataPackage);
+    else
+        targetList = NULL;
     targetListInitialized = false;
 
 
@@ -47,7 +50,7 @@ QString ImageWidget::getImagePath() const
     return this->imagePath;
 }
 
-QPixmap ImageWidget::getImage() const
+QPixmap& ImageWidget::getImage()
 {
     return this->image;
 }
@@ -115,7 +118,7 @@ void ImageWidget::setImage(QString imagePath)
     }
 }
 
-void ImageWidget::setImage(QPixmap resizedImage)
+void ImageWidget::setImage(QPixmap &resizedImage)
 {
     ui->imageLabel->setPixmap(resizedImage);
     image = resizedImage;
@@ -129,6 +132,7 @@ bool ImageWidget::isInitialized() const
 void ImageWidget::deleteTargetListWindow()
 {
     delete this->targetList;
+    this->targetList = NULL;
 }
 
 /*bool ImageWidget::getSeen() const
@@ -184,4 +188,21 @@ void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event){
             }
         }
     }
+}
+
+void ImageWidget::on_pinButton_clicked()
+{
+    QList<ImageWidget*>* itemsList = mainWindow->getItems();
+
+    for (int i = 0; i < itemsList->size(); ++i)
+    {
+        if (itemsList->at(i) == this) {
+            itemsList->removeAt(i);
+            break;
+        }
+    }
+
+    itemsList->insert(0, this);
+
+    mainWindow->refreshTable();
 }

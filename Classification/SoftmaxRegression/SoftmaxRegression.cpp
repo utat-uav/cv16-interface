@@ -19,7 +19,7 @@ void resaveImages(string outputFolder, FileManager& files);
 void fixOliversShit(string outputFolder, FileManager& files);
 void train(string path, string testPath);
 void run(string path, string serializedNN);
-void runCNN(string path);
+void runCNN(string path, string programPath);
 void runZBar(string path);
 void saveProcessedDataset(string path);
 
@@ -98,8 +98,9 @@ int main(int argc, char** argv)
 
 		cout << "// COMMENCE CONVOLUTIONAL NEURAL NETWORK" << endl << endl;
 		string path = argv[2];
+		string programPath = argv[0];
 
-		runCNN(path);
+		runCNN(path, programPath);
 	}
 	else if (mode == "-zbar")
 	{
@@ -400,10 +401,11 @@ void runZBar(string path)
 /*
 * Classifies with CNN
 */
-void runCNN(string path)
+void runCNN(string path, string programPath)
 {
 	cout << "Initializing convolutional neural network..." << endl;
-	ConvolutionalNeuralNetwork cnn(path);
+	cout << "Program path is " << programPath << endl;
+	ConvolutionalNeuralNetwork cnn(path, programPath);
 
 	if (!cnn.isInitialized())
 	{

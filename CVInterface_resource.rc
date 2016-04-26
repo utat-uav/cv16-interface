@@ -1,10 +1,10 @@
 # if defined(UNDER_CE)
 #  include <winbase.h>
 # else
-#  include <windows.h>
+#  include <winver.h>
 # endif
 
-IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\Winston\\My Homework\\UTAT\\cv16-interface\\Icon.ico"
+IDI_ICON1	ICON	DISCARDABLE	"D:/Workspace/UAV/cv16-interface/Icon.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0

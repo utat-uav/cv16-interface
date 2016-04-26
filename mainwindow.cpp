@@ -67,9 +67,9 @@ void MainWindow::ReadOut()
     QProcess *p = dynamic_cast<QProcess *>(sender());
     if (p)
     {
-      ui->consoleOutput->moveCursor(QTextCursor::End);
-      ui->consoleOutput->insertPlainText(p->readAllStandardOutput());
-      ui->consoleOutput->moveCursor(QTextCursor::End);
+        ui->consoleOutput->moveCursor(QTextCursor::End);
+        ui->consoleOutput->insertPlainText(p->readAllStandardOutput());
+        ui->consoleOutput->moveCursor(QTextCursor::End);
     }
 }
 
@@ -78,9 +78,9 @@ void MainWindow::ReadErr()
     QProcess *p = dynamic_cast<QProcess *>(sender());
     if (p)
     {
-      ui->consoleOutput->moveCursor(QTextCursor::End);
-      ui->consoleOutput->insertPlainText("ERROR: " + p->readAllStandardError());
-      ui->consoleOutput->moveCursor(QTextCursor::End);
+        //ui->consoleOutput->moveCursor(QTextCursor::End);
+        //ui->consoleOutput->insertPlainText("ERROR: " + p->readAllStandardError());
+        //ui->consoleOutput->moveCursor(QTextCursor::End);
     }
 }
 
@@ -168,7 +168,7 @@ void MainWindow::refreshTable()
     // Makes copy of the items
     QList<ImageWidget *> *itemsCopy = new QList<ImageWidget *>;
     for (int i = 0; i < items->size(); i++) {
-        ImageWidget *temp = new ImageWidget(dataPackage, this);
+        ImageWidget *temp = new ImageWidget(dataPackage, this, false);
         // Copy all information over
         temp->setImage(items->at(i)->getImage());
         temp->setTitle(items->at(i)->getTitle());
@@ -227,6 +227,11 @@ void MainWindow::refreshTable()
 
     // Take care of memory
     delete itemsCopy;
+}
+
+QList<ImageWidget*>* MainWindow::getItems()
+{
+    return this->items;
 }
 
 void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets)

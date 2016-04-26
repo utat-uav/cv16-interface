@@ -27,8 +27,6 @@ TargetListWindow::TargetListWindow(LifeSupport *dataPackage, QWidget *parent) :
     ui->targetListTable->horizontalHeader()->setMinimumSectionSize(100);
     ui->targetListTable->verticalHeader()->setDefaultSectionSize(100);
     //ui->targetListTable->setStyleSheet("QTableWidget {selection-background-color: #00000000; selection-color: white}");
-
-
 }
 
 TargetListWindow::~TargetListWindow()
@@ -188,6 +186,19 @@ void TargetListWindow::loadTargets(QString folderPath, QString filePath){
     resultFile = new QSettings(filePath, QSettings::IniFormat);
     mainPicWidth = resultFile->value("Analysis Parameters/Width").toInt();
     mainPicHeight = resultFile->value("Analysis Parameters/Height").toInt();
+
+    // Get info about image
+    QString altitude = resultFile->value("Position/altitude").toString();
+    QString latitude = resultFile->value("Position/latitude").toString();
+    QString longitude = resultFile->value("Position/longitude").toString();
+    QString heading = resultFile->value("Position/heading").toString();
+    QString headingDegrees = resultFile->value("Position/headingDegrees").toString();
+    ui->locationText->setText("<center><b>Latitude:</b> " + latitude +
+                              " | <b>Longitude:</b> " + longitude +
+                              " | <b>Altitude:</b> " + altitude +
+                              " | <b>Heading:</b> " + heading +
+                              " | <b>Heading (Degrees):</b> " + headingDegrees +
+                              "</center>");
 
     //connect(loader, SIGNAL(finished()), loader, SLOT(deleteLater()));
 }

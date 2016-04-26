@@ -2,9 +2,11 @@
 #include "ConvolutionalNeuralNetwork.h"
 
 
-ConvolutionalNeuralNetwork::ConvolutionalNeuralNetwork(string folderPath)
+ConvolutionalNeuralNetwork::ConvolutionalNeuralNetwork(string folderPath, string _programPath)
 {
 	FileManager fileManager(folderPath + "\\");
+
+	programPath = _programPath;
 
 	vector<string>* files = fileManager.getFiles();
 
@@ -523,8 +525,8 @@ char ConvolutionalNeuralNetwork::classifyWithRotation(InputImage *image, float &
 	}
 	*/
 
-	cout << endl;
-	cout << "Rotated " << rotatedAngle << " degrees" << endl;
+	//cout << endl;
+	//cout << "Rotated " << rotatedAngle << " degrees" << endl;
 	confidence = maxConfidence;
 	//confidence = maxWeight;
 	return classifiedChar;
@@ -593,11 +595,36 @@ void ConvolutionalNeuralNetwork::startCMDInput()
 			}
 			ifile.close();
 
-			float confidence;
-			InputImage inputImage(imagePath);
-			char c = classifyWithRotation(&inputImage, confidence);
+			// call segmenter first
+			Segmenter segm;
+			vector<cv::Mat> segmentedImages = segm.segment(imagePath);
 
-			cout << "Classified as " << c << " with " << confidence << " confidence" << endl;
+			string savePath = programPath.substr(0, programPath.find_last_of('\\'));
+			char finalChar = '0';
+			float finalConfidence = 0;
+			for (unsigned i = 0; i < segmentedImages.size(); ++i)
+			{
+				cv::imwrite(savePath + "\\label.jpg", segmentedImages[i]);
+				float confidence;
+				char c;
+				try 
+				{
+					InputImage inputImage(savePath + "\\label.jpg", true);
+					c = classifyWithRotation(&inputImage, confidence);
+				}
+				catch (cv::Exception &e)
+				{
+					continue;
+				}
+
+				if (confidence >= finalConfidence)
+				{
+					finalConfidence = confidence;
+					finalChar = c;
+				}
+			}
+
+			cout << "Classified as " << finalChar << " with " << finalConfidence << " confidence" << endl;
 			cout << endl;
 		}
 		else if (command == "classify")
@@ -618,11 +645,36 @@ void ConvolutionalNeuralNetwork::startCMDInput()
 			}
 			ifile.close();
 
-			float confidence;
-			InputImage inputImage(imagePath, true);
-			char c = classify(&inputImage, confidence);
+			// call segmenter first
+			Segmenter segm;
+			vector<cv::Mat> segmentedImages = segm.segment(imagePath);
 
-			cout << "Classified as " << c << " with " << confidence << " confidence" << endl;
+			string savePath = programPath.substr(0, programPath.find_last_of('\\'));
+			char finalChar = '0';
+			float finalConfidence = 0;
+			for (unsigned i = 0; i < segmentedImages.size(); ++i)
+			{
+				cv::imwrite(savePath + "\\label.jpg", segmentedImages[i]);
+				float confidence;
+				char c;
+				try
+				{
+					InputImage inputImage(savePath + "\\label.jpg", true);
+					c = classify(&inputImage, confidence);
+				}
+				catch (cv::Exception &e)
+				{
+					continue;
+				}
+
+				if (confidence >= finalConfidence)
+				{
+					finalConfidence = confidence;
+					finalChar = c;
+				}
+			}
+
+			cout << "Classified as " << finalChar << " with " << finalConfidence << " confidence" << endl;
 			cout << endl;
 		}
 		else if (command == "zbar")

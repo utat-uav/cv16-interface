@@ -2,6 +2,7 @@
 #include "FileManager.h"
 #include "TrainingSet.h"
 #include "BarcodeReader.h"
+#include "Segmenter.h"
 
 class ConvolutionalNeuralNetwork
 {
@@ -16,6 +17,8 @@ private:
 	vector<vector<float>> Wfc1;
 	vector<vector<float>> Wfc2;
 
+	string programPath;
+
 	void initConvTensor(string serializedConv, vector<vector<vector<vector<float>>>> &convLayer, int dim1, int dim2, int dim3, int dim4);
 	void initBTensor(string serializedB, vector<float> &b);
 	void initWTensor(string serializedW, vector<vector<float>> &w, int dim1, int dim2);
@@ -28,7 +31,7 @@ private:
 	void stitch(vector<Mat> &images);
 
 public:
-	ConvolutionalNeuralNetwork(string folderPath);
+	ConvolutionalNeuralNetwork(string folderPath, string _programPath);
 	~ConvolutionalNeuralNetwork();
 
 	char classify(InputImage *image, float &confidence);
