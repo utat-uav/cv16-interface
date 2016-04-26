@@ -198,7 +198,7 @@ def compressImage(image):
     
 def main():
     heading = 0
-    with open(_MYPARAMS['GPS_LOG'], 'rb') as gpsfile:
+    with open(_MYPARAMS['GPS_LOG'], 'rt') as gpsfile:
         spamreader = csv.reader(gpsfile, delimiter=',', quotechar='|')
         for row in spamreader:
             found = False
@@ -260,7 +260,10 @@ def main():
     print("Running MSER...")
     # delta, maxArea, minArea, maxVariation, minDiversity, maxEvolution, areaThreshold, minMargin, edgeBlurSize
     # Decreasing maxVariation increases how sharp edges need to be
-    my_fd = cv2.MSER_create(5, _MYPARAMS['MIN_AREA'] / 2738 * _IMBND[0], _MYPARAMS['MAX_AREA'] / 2738 * _IMBND[0], 0.099, 0.65, 200, 1.01, 0.003, 5) # Default is 5, 60, 14400, 0.25, 0.2, 200, 1.01, 0.003, 5
+    my_fd = cv2.MSER_create(5, 
+            int(_MYPARAMS['MIN_AREA'] / 2738 * _IMBND[0]), 
+            int( _MYPARAMS['MAX_AREA'] / 2738 * _IMBND[0]),
+            0.099, 0.65, 200, 1.01, 0.003, 5) # Default is 5, 60, 14400, 0.25, 0.2, 200, 1.01, 0.003, 5
 
     # FD_TYPE = "SimpleBlob"
     # PRINT_LOG_OUT.append("FD Type: " + FD_TYPE)
@@ -340,7 +343,7 @@ def main():
     cv2.imwrite(os.path.join(_MYPARAMS['OUTPUT_FOLDER'], 'croppedRegions.jpg'), imgClusteredRegions)
 	
     # print result info to log file
-    with open(os.path.join(_MYPARAMS['OUTPUT_FOLDER'], imageName + ' Results.ini'), 'a') as f:
+    with open(os.path.join(_MYPARAMS['OUTPUT_FOLDER'], imageName + ' Results.ini'), 'at') as f:
         for line in PRINT_LOG_OUT:
             f.write(line + '\n')
 
