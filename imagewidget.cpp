@@ -50,7 +50,7 @@ QString ImageWidget::getImagePath() const
     return this->imagePath;
 }
 
-QPixmap ImageWidget::getImage() const
+QPixmap& ImageWidget::getImage()
 {
     return this->image;
 }
@@ -118,7 +118,7 @@ void ImageWidget::setImage(QString imagePath)
     }
 }
 
-void ImageWidget::setImage(QPixmap resizedImage)
+void ImageWidget::setImage(QPixmap &resizedImage)
 {
     ui->imageLabel->setPixmap(resizedImage);
     image = resizedImage;
@@ -132,6 +132,7 @@ bool ImageWidget::isInitialized() const
 void ImageWidget::deleteTargetListWindow()
 {
     delete this->targetList;
+    this->targetList = NULL;
 }
 
 /*bool ImageWidget::getSeen() const
