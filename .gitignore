@@ -1,3 +1,4 @@
 *.ipch
 *.pro.user.*
 Extractor/test_fextract.bat
+Extractor/fextract/test_fextract.bat
