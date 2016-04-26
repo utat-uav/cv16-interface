@@ -16,6 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -28,6 +29,7 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *imageLabel;
     QHBoxLayout *horizontalLayout;
+    QPushButton *pinButton;
     QLabel *imageCaption;
     QLabel *numTargetDisplay;
     QLabel *colourLabel;
@@ -59,6 +61,23 @@ public:
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+        pinButton = new QPushButton(ImageWidget);
+        pinButton->setObjectName(QStringLiteral("pinButton"));
+        pinButton->setMaximumSize(QSize(25, 18));
+        QFont font;
+        font.setPointSize(10);
+        font.setBold(true);
+        font.setWeight(75);
+        pinButton->setFont(font);
+        pinButton->setAutoFillBackground(false);
+        pinButton->setCheckable(false);
+        pinButton->setChecked(false);
+        pinButton->setAutoDefault(false);
+        pinButton->setDefault(false);
+        pinButton->setFlat(true);
+
+        horizontalLayout->addWidget(pinButton);
+
         imageCaption = new QLabel(ImageWidget);
         imageCaption->setObjectName(QStringLiteral("imageCaption"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -67,10 +86,6 @@ public:
         sizePolicy1.setHeightForWidth(imageCaption->sizePolicy().hasHeightForWidth());
         imageCaption->setSizePolicy(sizePolicy1);
         imageCaption->setMaximumSize(QSize(16777215, 23));
-        QFont font;
-        font.setPointSize(10);
-        font.setBold(true);
-        font.setWeight(75);
         imageCaption->setFont(font);
         imageCaption->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
@@ -109,6 +124,7 @@ public:
     {
         ImageWidget->setWindowTitle(QApplication::translate("ImageWidget", "Form", 0));
         imageLabel->setText(QString());
+        pinButton->setText(QApplication::translate("ImageWidget", "^", 0));
         imageCaption->setText(QApplication::translate("ImageWidget", "Image Name", 0));
         numTargetDisplay->setText(QApplication::translate("ImageWidget", "0 Targets", 0));
         colourLabel->setText(QString());

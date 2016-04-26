@@ -65,6 +65,8 @@ protected:
 private slots:
 
 
+    void on_pinButton_clicked();
+
 private:
     LifeSupport* dataPackage ;
     Ui::ImageWidget *ui;

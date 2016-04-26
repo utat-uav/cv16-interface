@@ -229,6 +229,11 @@ void MainWindow::refreshTable()
     delete itemsCopy;
 }
 
+QList<ImageWidget*>* MainWindow::getItems()
+{
+    return this->items;
+}
+
 void MainWindow::appendItem(QString folderPath, QString filePath, QString imagePath, QString title, int numTargets)
 {
     // Creates item
