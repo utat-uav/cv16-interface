@@ -17,9 +17,9 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
+#include "targetlistwindow.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -28,7 +28,7 @@ class Ui_TargetListWindow
 public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *mainpic;
+    CustomLabel *mainpic;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout2;
     QCommandLinkButton *newItem;
@@ -54,7 +54,7 @@ public:
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        mainpic = new QLabel(TargetListWindow);
+        mainpic = new CustomLabel(TargetListWindow);
         mainpic->setObjectName(QStringLiteral("mainpic"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
