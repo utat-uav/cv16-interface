@@ -36,6 +36,9 @@ TargetListWindow::~TargetListWindow()
         loader->wait();
     }
 
+    // Not sure if loader needs to be deleted. Could cause memory leak if not
+    delete loader;
+
     delete ui;
     delete targetList;
     delete resultFile;
