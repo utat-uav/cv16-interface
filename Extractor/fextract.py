@@ -226,7 +226,7 @@ def main():
     PRINT_LOG_OUT = []
     PRINT_LOG_OUT.append("[Date]")
     PRINT_LOG_OUT.append("Date Analyzed = " + strftime("%Y-%m-%d %H:%M:%S"))
-    PRINT_LOG_OUT.append("\n[Position]")
+    PRINT_LOG_OUT.append("\n[Position]") # For some reason this code went missing in a commit
     PRINT_LOG_OUT += ["heading = " + headingString]
     PRINT_LOG_OUT += ["headingDegrees = " + str(heading)]
     PRINT_LOG_OUT += ["latitude = " + latitude]
