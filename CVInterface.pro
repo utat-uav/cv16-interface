@@ -53,7 +53,11 @@ DISTFILES += \
 RESOURCES += \
     resouces.qrc
 
-QMAKE_CXXFLAGS += -fopenmp
-LIBS += -fopenmp
+win32 { # For Windows
+  QMAKE_CXXFLAGS += -openmp
+  QMAKE_CXXFLAGS += -arch:AVX
+  QMAKE_CXXFLAGS += -D "_CRT_SECURE_NO_WARNINGS"
+  QMAKE_CXXFLAGS_RELEASE *= -O2
+}
 	
 win32:RC_ICONS += Icon.ico

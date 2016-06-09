@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'imagewidget.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.0)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.6.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'imagewidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.4.0. It"
+#error "This file was generated using the moc from 5.6.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,11 +20,11 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ImageWidget_t {
     QByteArrayData data[3];
-    char stringdata[34];
+    char stringdata0[34];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_ImageWidget_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_ImageWidget_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
 static const qt_meta_stringdata_ImageWidget_t qt_meta_stringdata_ImageWidget = {
@@ -64,6 +64,7 @@ void ImageWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         ImageWidget *_t = static_cast<ImageWidget *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_pinButton_clicked(); break;
         default: ;
@@ -86,7 +87,7 @@ const QMetaObject *ImageWidget::metaObject() const
 void *ImageWidget::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_ImageWidget.stringdata))
+    if (!strcmp(_clname, qt_meta_stringdata_ImageWidget.stringdata0))
         return static_cast<void*>(const_cast< ImageWidget*>(this));
     return QWidget::qt_metacast(_clname);
 }

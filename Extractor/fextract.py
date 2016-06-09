@@ -24,11 +24,11 @@ _MYPARAMS = {
     'MIN_POINTS_IN_CLUSTER' : 5,
     'USE_TREE_FILTER' : 1, # Filters out crops that are "tree colored"
 	# USC SETTINGS
-    'MAX_AREA' : 38000,
-    'MIN_AREA' : 3500,
+    #'MAX_AREA' : 38000,
+    #'MIN_AREA' : 3500,
 	# TARGET SETTINGS
-    #'MAX_AREA' : 30000,
-    #'MIN_AREA' : 2650,
+    'MAX_AREA' : 30000,
+    'MIN_AREA' : 2650,
 	'CROP_PADDING' : 8,
     'GPS_LOG' : "<unknown>",
     'OUTPUT_FOLDER' : "Output"

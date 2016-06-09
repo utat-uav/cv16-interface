@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'imagewidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.4.0
+** Created by: Qt User Interface Compiler version 5.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -73,7 +73,6 @@ public:
         pinButton->setCheckable(false);
         pinButton->setChecked(false);
         pinButton->setAutoDefault(false);
-        pinButton->setDefault(false);
         pinButton->setFlat(true);
 
         horizontalLayout->addWidget(pinButton);
@@ -116,6 +115,9 @@ public:
 
 
         retranslateUi(ImageWidget);
+
+        pinButton->setDefault(false);
+
 
         QMetaObject::connectSlotsByName(ImageWidget);
     } // setupUi
