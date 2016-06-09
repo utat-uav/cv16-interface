@@ -40,6 +40,7 @@ public:
     QLabel *label;
     QTextBrowser *description;
     QHBoxLayout *horizontalLayout_4;
+    QCommandLinkButton *classifyWithRotation;
     QCommandLinkButton *classifyButton;
     QCommandLinkButton *zbar;
     QDialogButtonBox *buttonBox;
@@ -48,7 +49,7 @@ public:
     {
         if (TargetWindow->objectName().isEmpty())
             TargetWindow->setObjectName(QStringLiteral("TargetWindow"));
-        TargetWindow->resize(533, 319);
+        TargetWindow->resize(755, 321);
         verticalLayout = new QVBoxLayout(TargetWindow);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetFixedSize);
@@ -143,6 +144,11 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         horizontalLayout_4->setSizeConstraint(QLayout::SetFixedSize);
+        classifyWithRotation = new QCommandLinkButton(TargetWindow);
+        classifyWithRotation->setObjectName(QStringLiteral("classifyWithRotation"));
+
+        horizontalLayout_4->addWidget(classifyWithRotation);
+
         classifyButton = new QCommandLinkButton(TargetWindow);
         classifyButton->setObjectName(QStringLiteral("classifyButton"));
         sizePolicy1.setHeightForWidth(classifyButton->sizePolicy().hasHeightForWidth());
@@ -196,6 +202,7 @@ public:
         label_2->setText(QApplication::translate("TargetWindow", "Coordinates:", 0));
         coordinatesLabel->setText(QApplication::translate("TargetWindow", "TextLabel", 0));
         label->setText(QApplication::translate("TargetWindow", "Description:", 0));
+        classifyWithRotation->setText(QApplication::translate("TargetWindow", "Classify With Rotation", 0));
         classifyButton->setText(QApplication::translate("TargetWindow", "Classify", 0));
         zbar->setText(QApplication::translate("TargetWindow", "zbar", 0));
     } // retranslateUi

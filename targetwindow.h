@@ -27,6 +27,8 @@ private slots:
 
     void on_zbar_clicked();
 
+    void on_classifyWithRotation_clicked();
+
 private:
     void classify() ;
     void zbar() ;
